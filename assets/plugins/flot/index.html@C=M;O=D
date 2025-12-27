@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+ <head>
+  <title>Index of /demo/ajax/noa/assets/plugins/flot</title>
+ </head>
+ <body>
+<h1>Index of /demo/ajax/noa/assets/plugins/flot</h1>
+  <table>
+   <tr><th valign="top">&nbsp;</th><th><a href="?C=N;O=A">Name</a></th><th><a href="?C=M;O=A">Last modified</a></th><th><a href="?C=S;O=A">Size</a></th><th><a href="?C=D;O=A">Description</a></th></tr>
+   <tr><th colspan="5"><hr></th></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="/demo/ajax/noa/assets/plugins/">Parent Directory</a>       </td><td>&nbsp;</td><td align="right">  - </td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.stack.js">jquery.flot.stack.js</a>   </td><td align="right">2021-12-08 16:20  </td><td align="right">8.1K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.js">jquery.flot.js</a>         </td><td align="right">2021-09-18 12:10  </td><td align="right">120K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="chart.flot.sampledata.js">chart.flot.sampledat..&gt;</a></td><td align="right">2020-01-31 13:41  </td><td align="right"> 33K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="dashboard.sampledata.js">dashboard.sampledata.js</a></td><td align="right">2019-11-21 11:35  </td><td align="right"> 15K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.min.js">jquery.min.js</a>          </td><td align="right">2019-05-14 16:37  </td><td align="right">139K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.time.min.js">jquery.flot.time.min.js</a></td><td align="right">2019-05-14 16:37  </td><td align="right">6.7K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.threshold.min.js">jquery.flot.threshol..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">1.8K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.symbol.min.js">jquery.flot.symbol.m..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">1.2K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.stack.min.js">jquery.flot.stack.mi..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">2.4K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.selection.min.js">jquery.flot.selectio..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">5.2K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.resize.min.js">jquery.flot.resize.m..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">2.3K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.pie.min.js">jquery.flot.pie.min.js</a> </td><td align="right">2019-05-14 16:37  </td><td align="right"> 12K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.navigate.min.js">jquery.flot.navigate..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">6.4K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.min.js">jquery.flot.min.js</a>     </td><td align="right">2019-05-14 16:37  </td><td align="right"> 52K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.image.min.js">jquery.flot.image.mi..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">2.6K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.fillbetween.min.js">jquery.flot.fillbetw..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">2.3K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.errorbars.min.js">jquery.flot.errorbar..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">5.3K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.crosshair.min.js">jquery.flot.crosshai..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">2.1K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.categories.min.js">jquery.flot.categori..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">2.5K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.canvas.min.js">jquery.flot.canvas.m..&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">3.9K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.colorhelpers.min.js">jquery.colorhelpers...&gt;</a></td><td align="right">2019-05-14 16:37  </td><td align="right">3.1K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="excanvas.min.js">excanvas.min.js</a>        </td><td align="right">2019-05-14 16:37  </td><td align="right"> 19K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.pie.js">jquery.flot.pie.js</a>     </td><td align="right">2014-05-01 01:15  </td><td align="right"> 23K</td><td>&nbsp;</td></tr>
+<tr><td valign="top">&nbsp;</td><td><a href="jquery.flot.fillbetween.js">jquery.flot.fillbetw..&gt;</a></td><td align="right">2014-05-01 01:15  </td><td align="right">5.1K</td><td>&nbsp;</td></tr>
+   <tr><th colspan="5"><hr></th></tr>
+</table>
+</body></html>

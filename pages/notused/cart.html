@@ -1,0 +1,727 @@
+<!-- saved from url=(0048)https://spruko.com/demo/ajax/noa/pages/cart.html -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <style>
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu72xKOzY.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu5mxKOzY.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7mxKOzY.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4WxKOzY.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7WxKOzY.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7GxKOzY.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxK.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+    </style>
+    <style>
+      .ucbzx-button-wrapper {
+        position: absolute !important;
+        z-index: 1000 !important;
+        top: 0 !important;
+        right: 0 !important;
+      }
+
+      .ucbzx-button {
+        display: block;
+        border: none !important;
+        /* outline: none !important; */
+        background: #3c3c54 !important;
+        padding: 0 !important;
+        border-radius: 5px;
+        width: 36px !important;
+        height: 36px !important;
+      }
+
+      .ucbzx-button:active {
+        border: none !important;
+      }
+
+      .ucbzx-button:disabled {
+        cursor: default !important;
+      }
+
+      .ucbzx-download-img {
+        display: block !important;
+        width: 36px !important;
+        height: 36px !important;
+        cursor: pointer !important;
+        margin: 0 !important;
+      }
+
+      .ucbzx-hide {
+        display: none !important;
+      }
+
+      .ucbzx-loader {
+        display: block;
+        box-sizing: content-box !important;
+        width: 30px !important;
+        height: 30px !important;
+        padding: 3px !important;
+        animation: rotate 1s linear infinite;
+        margin: 0 !important;
+      }
+
+      /*
+    RESOLUTIONS CHOICE
+*/
+      .ucbzx-resolutions-list {
+        position: absolute !important;
+        top: 36px !important;
+        right: 0 !important;
+        background: #3c3c54 !important;
+        color: #dbdbdb !important;
+        font-family: 'Roboto', sans-serif !important;
+        font-size: 14px !important;
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .ucbzx-resolutions-list li {
+        margin: 4px !important;
+        padding: 0 !important;
+        font-weight: bold !important;
+        white-space: nowrap !important;
+        width: 130px !important;
+        height: 30px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+
+      .ucbzx-list-item-tickbox {
+        width: 20px !important;
+        height: 20px !important;
+        background: rgba(255, 255, 255, 0.219) !important;
+        /* border-radius: 5px !important; */
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        /* font-size: 17px !important; */
+        /* border: 1px solid rgba(255, 255, 255, 0.835) !important; */
+        cursor: pointer !important;
+        margin-left: 4px !important;
+      }
+
+      .ucbzx-resolutions-list>li::before {
+        display: none;
+      }
+
+      .ucbzx-list-item-tickbox:not(.ucbzx-list-item-tickbox-checked):hover {
+        background: rgba(255, 255, 255, 0.37) !important;
+      }
+
+      .ucbzx-list-item-tickbox.ucbzx-list-item-tickbox-checked {
+        cursor: default !important;
+      }
+
+      .ucbzx-list-item-tickbox-checked::after {
+        content: "\2713" !important;
+        color: white !important;
+      }
+
+      .ucbzx-list-item-text {
+        /* border-radius: 5px !important; */
+        flex-grow: 1 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        height: 100% !important;
+        margin-left: 10px !important;
+      }
+
+      .ucbzx-list-item-text:hover {
+        background: rgba(255, 255, 255, 0.37) !important;
+        color: white !important;
+      }
+
+      /* account for the fact that we got rid of the tickbox there */
+      .ucbzx-resolutions-list li[data-type="captions"] .ucbzx-list-item-text {
+        margin-left: 34px !important;
+        font-style: italic;
+      }
+
+      /*
+    MISC
+*/
+      .ucbzx-arrow-container {
+        background: none !important;
+        position: absolute !important;
+        top: 36px !important;
+        left: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        border-left: 18px solid transparent !important;
+        border-right: 18px solid transparent !important;
+        border-top: 18px solid #3c3c54 !important;
+        /* border-bottom: none !important; */
+        cursor: pointer !important;
+      }
+
+      .ucbzx-arrow-container::after {
+        position: absolute !important;
+        top: -18px !important;
+        left: -4px !important;
+        content: "" !important;
+        border: 1px solid #dbdbdb !important;
+        border-width: 0 3px 3px 0 !important;
+        display: inline-block !important;
+        padding: 3px !important;
+        transform: rotate(45deg);
+      }
+
+      .ucbzx-button:focus,
+      .ucbzx-arrow-container:focus,
+      .ucbzx-resolutions-list:focus,
+      .ucbzx-list-item-tickbox:focus,
+      .ucbzx-list-item-text:focus {
+        outline: 1px solid white !important;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /*
+    RESET STYLES
+*/
+      .ucbzx-button-wrapper button {
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        outline: none;
+        line-height: normal;
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+        -webkit-appearance: none;
+      }
+
+      .ucbzx-button-wrapper li,
+      .ucbzx-button-wrapper li * {
+        margin: 0;
+        font: inherit;
+        font-style: inherit;
+        font-size: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Cart</h1>
+      </div>
+      <div class="ms-auto pageheader-btn">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Apps</li>
+          <li class="breadcrumb-item">
+            <a href="javascript:void(0);">E-commerce</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Cart</li>
+        </ol>
+      </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <div class="row">
+      <div class="col-xl-8 col-md-12">
+        <div class="card cart">
+          <div class="card-header border-bottom">
+            <h3 class="card-title">Shopping Cart</h3>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered table-vcenter text-nowrap mb-0">
+                <thead>
+                  <tr class="border-top">
+                    <th class="text-center">S.No.</th>
+                    <th class="w-10">Preview</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th class="w-15">Quantity</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="text-center">1</td>
+                    <td>
+                      <img src="assets/images/pngs/1.png" alt="" class="cart-img">
+                    </td>
+                    <td>Digital Camera Pro 30.2MP With Lens</td>
+                    <td>$3,950</td>
+                    <td>
+                      <input type="number" name="quantity" class="form-control text-center" value="1">
+                    </td>
+                    <td>
+                      <a href="javascript:void(0);" class="btn btn-square btn-danger-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Save for Wishlist">
+                        <i class="icon icon-heart  fs-13"></i>
+                      </a>
+                      <a href="javascript:void(0);" class="btn btn-square btn-info-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove">
+                        <i class="icon icon-trash  fs-13"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">2</td>
+                    <td>
+                      <img src="assets/images/pngs/4.png" alt="" class="cart-img">
+                    </td>
+                    <td>Attractive Multi Color Flower Pot - Combo Of 3</td>
+                    <td>$105</td>
+                    <td>
+                      <input type="number" name="quantity" class="form-control text-center" value="3">
+                    </td>
+                    <td>
+                      <a href="javascript:void(0);" class="btn btn-square btn-danger-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Save for Wishlist">
+                        <i class="icon icon-heart  fs-13"></i>
+                      </a>
+                      <a href="javascript:void(0);" class="btn btn-square btn-info-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove">
+                        <i class="icon icon-trash  fs-13"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">3</td>
+                    <td>
+                      <img src="assets/images/pngs/2.png" alt="" class="cart-img">
+                    </td>
+                    <td>Wireless Bluetooth Game Controller Joystick</td>
+                    <td>$945</td>
+                    <td>
+                      <input type="number" name="quantity" class="form-control text-center" value="3">
+                    </td>
+                    <td>
+                      <a href="javascript:void(0);" class="btn btn-square btn-danger-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Save for Wishlist">
+                        <i class="icon icon-heart  fs-13"></i>
+                      </a>
+                      <a href="javascript:void(0);" class="btn btn-square btn-info-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove">
+                        <i class="icon icon-trash  fs-13"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">4</td>
+                    <td>
+                      <img src="assets/images/pngs/5.png" alt="" class="cart-img">
+                    </td>
+                    <td>Long Arm Rechargeable Study Desk Lamp</td>
+                    <td>$105</td>
+                    <td>
+                      <input type="number" name="quantity" class="form-control text-center" value="2">
+                    </td>
+                    <td>
+                      <a href="javascript:void(0);" class="btn btn-square btn-danger-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Save for Wishlist">
+                        <i class="icon icon-heart  fs-13"></i>
+                      </a>
+                      <a href="javascript:void(0);" class="btn btn-square btn-info-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove">
+                        <i class="icon icon-trash  fs-13"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">5</td>
+                    <td>
+                      <img src="assets/images/pngs/6.png" alt="" class="cart-img">
+                    </td>
+                    <td>Wood Photo Frame(M) With Wall Decorators</td>
+                    <td>$106</td>
+                    <td>
+                      <input type="number" name="quantity" class="form-control text-center" value="5">
+                    </td>
+                    <td>
+                      <a href="javascript:void(0);" class="btn btn-square btn-danger-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Save for Wishlist">
+                        <i class="icon icon-heart  fs-13"></i>
+                      </a>
+                      <a href="javascript:void(0);" class="btn btn-square btn-info-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove">
+                        <i class="icon icon-trash  fs-13"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="text-center">6</td>
+                    <td>
+                      <img src="assets/images/pngs/9.png" alt="" class="cart-img">
+                    </td>
+                    <td>Rounded Shape Digital Watch For Men</td>
+                    <td>$230</td>
+                    <td>
+                      <input type="number" name="quantity" class="form-control text-center" value="1">
+                    </td>
+                    <td>
+                      <a href="javascript:void(0);" class="btn btn-square btn-danger-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Save for Wishlist">
+                        <i class="icon icon-heart  fs-13"></i>
+                      </a>
+                      <a href="javascript:void(0);" class="btn btn-square btn-info-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove">
+                        <i class="icon icon-trash  fs-13"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  <tr class="border-bottom">
+                    <td class="text-center">7</td>
+                    <td>
+                      <img src="assets/images/pngs/8.png" alt="" class="cart-img">
+                    </td>
+                    <td>Analog Wall Clock - 30cm × 30cm</td>
+                    <td>$110</td>
+                    <td>
+                      <input type="number" name="quantity" class="form-control text-center" value="1">
+                    </td>
+                    <td>
+                      <a href="javascript:void(0);" class="btn btn-square btn-danger-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Save for Wishlist">
+                        <i class="icon icon-heart  fs-13"></i>
+                      </a>
+                      <a href="javascript:void(0);" class="btn btn-square btn-info-light me-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Remove">
+                        <i class="icon icon-trash  fs-13"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-12">
+        <div class="card">
+          <div class="card-header border-bottom">
+            <h3 class="card-title">Have coupon?</h3>
+          </div>
+          <div class="card-body">
+            <form>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="text" id="myInput" class="form-control coupon" placeholder="Coupon code">
+                  <span class="input-group-btn">
+                    <button class="btn btn-primary btn-apply coupon">Apply</button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header border-bottom">
+            <h3 class="card-title">Price Details</h3>
+          </div>
+          <div class="card-body">
+            <table class="table border-top-0">
+              <tbody>
+                <tr>
+                  <td class="border-top-0">Sub Total</td>
+                  <td class="text-end border-top-0">$4,360</td>
+                </tr>
+                <tr>
+                  <td class="border-top-0">Discount</td>
+                  <td class="text-end border-top-0">5%</td>
+                </tr>
+                <tr>
+                  <td class="border-top-0">Shipping</td>
+                  <td class="text-end border-top-0">Free</td>
+                </tr>
+                <tr>
+                  <td class="fs-20 border-top-0">Total</td>
+                  <td class="text-end fs-20 border-top-0">$3,976</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer">
+            <div class="step-footer text-end">
+              <a href="https://spruko.com/demo/ajax/noa/pages/products.html" class="btn btn-primary my-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class=" w-inner-icn" enable-background="new 0 0 24 24" viewBox="0 0 24 24">
+                  <path d="M17.5,11.5H7.7069702l4.6465454-4.6464844c0.1972046-0.1932373,0.2003784-0.5097656,0.0071411-0.7069702c-0.1932983-0.1972046-0.5098267-0.2004395-0.7070312-0.0071411c-0.0023804,0.0023193-0.0047607,0.0046997-0.0071411,0.0071411l-5.5,5.5c-0.1953125,0.1950684-0.1956177,0.5113525-0.0005493,0.706665c0.0001221,0.0001831,0.0002441,0.0003052,0.0005493,0.0003052l5.5,5.5c0.1972046,0.1932373,0.5137329,0.1900635,0.7069702-0.0071411c0.1905518-0.194397,0.1905518-0.5054932,0-0.6998901L7.7069702,12.5H17.5c0.276123,0,0.5-0.223877,0.5-0.5S17.776123,11.5,17.5,11.5z"></path>
+                </svg> Continue Shopping </a>
+              <a href="https://spruko.com/demo/ajax/noa/pages/checkout.html" class="btn btn-info my-1"> Check out <svg xmlns="http://www.w3.org/2000/svg" class=" w-inner-icn" enable-background="new 0 0 24 24" viewBox="0 0 24 24">
+                  <path d="M17.8536377,11.6466064c-0.000061-0.000061-0.0001221-0.000061-0.0001221-0.0001221l-5.5-5.5c-0.1986084-0.1918335-0.5151367-0.1863403-0.7069702,0.0122681c-0.1871338,0.1937866-0.1871338,0.5009766,0,0.6947021L16.2930298,11.5H6.5C6.223877,11.5,6,11.723877,6,12s0.223877,0.5,0.5,0.5h9.7930298l-4.6465454,4.6464844c-0.1986084,0.1918335-0.2041016,0.5083618-0.0122681,0.7069702c0.1918335,0.1986694,0.5084229,0.2041626,0.7070312,0.0123291c0.0041504-0.0040283,0.0082397-0.0081177,0.0122681-0.0123291l5.5-5.5C18.0487671,12.1583252,18.0487671,11.8418579,17.8536377,11.6466064z"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- COL-END -->
+     <!-- ROW-1 CLOSED -->
+            <!-- PRODUCT JS-->
+            <script src="assets/js/products.js"></script>
+  </body>
+</html>

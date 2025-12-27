@@ -1,0 +1,1620 @@
+<!-- saved from url=(0048)https://spruko.com/demo/ajax/noa/pages/chat.html -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <style>
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu72xKOzY.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu5mxKOzY.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7mxKOzY.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4WxKOzY.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7WxKOzY.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7GxKOzY.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxK.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+    </style>
+    <style>
+      .ucbzx-button-wrapper {
+        position: absolute !important;
+        z-index: 1000 !important;
+        top: 0 !important;
+        right: 0 !important;
+      }
+
+      .ucbzx-button {
+        display: block;
+        border: none !important;
+        /* outline: none !important; */
+        background: #3c3c54 !important;
+        padding: 0 !important;
+        border-radius: 5px;
+        width: 36px !important;
+        height: 36px !important;
+      }
+
+      .ucbzx-button:active {
+        border: none !important;
+      }
+
+      .ucbzx-button:disabled {
+        cursor: default !important;
+      }
+
+      .ucbzx-download-img {
+        display: block !important;
+        width: 36px !important;
+        height: 36px !important;
+        cursor: pointer !important;
+        margin: 0 !important;
+      }
+
+      .ucbzx-hide {
+        display: none !important;
+      }
+
+      .ucbzx-loader {
+        display: block;
+        box-sizing: content-box !important;
+        width: 30px !important;
+        height: 30px !important;
+        padding: 3px !important;
+        animation: rotate 1s linear infinite;
+        margin: 0 !important;
+      }
+
+      /*
+    RESOLUTIONS CHOICE
+*/
+      .ucbzx-resolutions-list {
+        position: absolute !important;
+        top: 36px !important;
+        right: 0 !important;
+        background: #3c3c54 !important;
+        color: #dbdbdb !important;
+        font-family: 'Roboto', sans-serif !important;
+        font-size: 14px !important;
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .ucbzx-resolutions-list li {
+        margin: 4px !important;
+        padding: 0 !important;
+        font-weight: bold !important;
+        white-space: nowrap !important;
+        width: 130px !important;
+        height: 30px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+
+      .ucbzx-list-item-tickbox {
+        width: 20px !important;
+        height: 20px !important;
+        background: rgba(255, 255, 255, 0.219) !important;
+        /* border-radius: 5px !important; */
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        /* font-size: 17px !important; */
+        /* border: 1px solid rgba(255, 255, 255, 0.835) !important; */
+        cursor: pointer !important;
+        margin-left: 4px !important;
+      }
+
+      .ucbzx-resolutions-list>li::before {
+        display: none;
+      }
+
+      .ucbzx-list-item-tickbox:not(.ucbzx-list-item-tickbox-checked):hover {
+        background: rgba(255, 255, 255, 0.37) !important;
+      }
+
+      .ucbzx-list-item-tickbox.ucbzx-list-item-tickbox-checked {
+        cursor: default !important;
+      }
+
+      .ucbzx-list-item-tickbox-checked::after {
+        content: "\2713" !important;
+        color: white !important;
+      }
+
+      .ucbzx-list-item-text {
+        /* border-radius: 5px !important; */
+        flex-grow: 1 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        height: 100% !important;
+        margin-left: 10px !important;
+      }
+
+      .ucbzx-list-item-text:hover {
+        background: rgba(255, 255, 255, 0.37) !important;
+        color: white !important;
+      }
+
+      /* account for the fact that we got rid of the tickbox there */
+      .ucbzx-resolutions-list li[data-type="captions"] .ucbzx-list-item-text {
+        margin-left: 34px !important;
+        font-style: italic;
+      }
+
+      /*
+    MISC
+*/
+      .ucbzx-arrow-container {
+        background: none !important;
+        position: absolute !important;
+        top: 36px !important;
+        left: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        border-left: 18px solid transparent !important;
+        border-right: 18px solid transparent !important;
+        border-top: 18px solid #3c3c54 !important;
+        /* border-bottom: none !important; */
+        cursor: pointer !important;
+      }
+
+      .ucbzx-arrow-container::after {
+        position: absolute !important;
+        top: -18px !important;
+        left: -4px !important;
+        content: "" !important;
+        border: 1px solid #dbdbdb !important;
+        border-width: 0 3px 3px 0 !important;
+        display: inline-block !important;
+        padding: 3px !important;
+        transform: rotate(45deg);
+      }
+
+      .ucbzx-button:focus,
+      .ucbzx-arrow-container:focus,
+      .ucbzx-resolutions-list:focus,
+      .ucbzx-list-item-tickbox:focus,
+      .ucbzx-list-item-text:focus {
+        outline: 1px solid white !important;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /*
+    RESET STYLES
+*/
+      .ucbzx-button-wrapper button {
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        outline: none;
+        line-height: normal;
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+        -webkit-appearance: none;
+      }
+
+      .ucbzx-button-wrapper li,
+      .ucbzx-button-wrapper li * {
+        margin: 0;
+        font: inherit;
+        font-style: inherit;
+        font-size: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Chat</h1>
+      </div>
+      <div class="ms-auto pageheader-btn">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a href="javascript:void(0);">Apps</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Chat</li>
+        </ol>
+      </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- Row -->
+    <div class="row row-deck">
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
+        <div class="card  overflow-scroll">
+          <div class="main-content-app pt-0">
+            <div class="main-content-left main-content-left-chat">
+              <div class="card-body d-flex">
+                <div class="main-img-user online">
+                  <img alt="avatar" src="assets/images/users/6.jpg">
+                </div>
+                <div class="main-chat-msg-name">
+                  <p class="text-normal mb-0 text-14">Elena Gilbert</p>
+                  <span class="dot-label bg-success"></span>
+                  <small class="me-3">Available</small>
+                </div>
+                <nav class="nav ms-auto">
+                  <div class="dropdown">
+                    <a class="nav-link text-muted fs-20" href="javascript:void(0);" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                      <i class="fe fe-more-vertical"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-start">
+                      <a class="dropdown-item" href="javascript: void(0);">
+                        <i class="fe fe-user me-1"></i> Profile </a>
+                      <a class="dropdown-item" href="javascript: void(0);">
+                        <i class="fe fe-edit me-1"></i> Edit </a>
+                      <a class="dropdown-item" href="javascript: void(0);">
+                        <i class="fe fe-users me-1"></i> New Group </a>
+                      <a class="dropdown-item" href="javascript: void(0);">
+                        <i class="fe fe-settings me-1"></i> Settings </a>
+                      <a class="dropdown-item" href="javascript: void(0);">
+                        <i class="fe fe-trash-2 me-1"></i> Delete </a>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+              <!-- main-chat-header -->
+              <div class="card-body overflow-scroll border-bottom">
+                <div class="input-group mb-2">
+                  <input type="text" class="form-control" placeholder="Search ...">
+                  <span class="input-group-text btn btn-primary text-white">Search</span>
+                </div>
+                <div class="main-chat-contacts-wrapper p-0">
+                  <label class="form-label mb-2">Online Users</label>
+                  <div class="lSSlideOuter main-chat-contacts-slider ">
+                    <div class="main-chat-contacts-slider lSSlideWrapper usingCss overflow-scroll">
+                      <div class="main-chat-contacts lightSlider lsGrab lSSlide ps-0" id="chatActiveContacts" style="width: 464px; height: 59px; padding-bottom: 0%;">
+                        <div class="lslide active">
+                          <span class="avatar avatar-md bradius cover-image" data-bs-image-src="assets/images/users/5.jpg" style="background: url(&quot;assets/images/users/5.jpg&quot;) center center;">
+                            <span class="avatar-status bg-green"></span>
+                          </span>
+                          <small>Ariana</small>
+                        </div>
+                        <div class="lslide">
+                          <span class="avatar avatar-md bradius cover-image" data-bs-image-src="assets/images/users/9.jpg" style="background: url(&quot;assets/images/users/9.jpg&quot;) center center;">
+                            <span class="avatar-status bg-green"></span>
+                          </span>
+                          <small>Monino</small>
+                        </div>
+                        <div class="lslide">
+                          <span class="avatar avatar-md bradius cover-image" data-bs-image-src="assets/images/users/6.jpg" style="background: url(&quot;assets/images/users/6.jpg&quot;) center center;">
+                            <span class="avatar-status bg-green"></span>
+                          </span>
+                          <small>Reynante</small>
+                        </div>
+                        <div class="lslide">
+                          <span class="avatar avatar-md bradius cover-image" data-bs-image-src="assets/images/users/7.jpg" style="background: url(&quot;assets/images/users/7.jpg&quot;) center center;">
+                            <span class="avatar-status bg-green"></span>
+                          </span>
+                          <small>Labares</small>
+                        </div>
+                        <div class="lslide">
+                          <span class="avatar avatar-md bradius cover-image" data-bs-image-src="assets/images/users/5.jpg" style="background: url(&quot;assets/images/users/5.jpg&quot;) center center;">
+                            <span class="avatar-status bg-green"></span>
+                          </span>
+                          <small>Rolando</small>
+                        </div>
+                        <div class="lslide">
+                          <div class="avatar avatar-md bradius bg-primary-transparent text-primary">
+                            <i class="fe fe-plus"></i>
+                          </div>
+                          <small>More</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- main-active-contacts -->
+                </div>
+              </div>
+              <div class="tab-menu-heading border-0">
+                <div class="tabs-menu">
+                  <ul class="nav panel-tabs">
+                    <li>
+                      <a href="https://spruko.com/demo/ajax/noa/pages/chat.html#ChatList" class="me-2 active mb-2" data-bs-toggle="tab">Messages</a>
+                    </li>
+                    <li>
+                      <a href="https://spruko.com/demo/ajax/noa/pages/chat.html#ChatGroups" class="me-2 mb-2" data-bs-toggle="tab">Groups</a>
+                    </li>
+                    <li>
+                      <a href="https://spruko.com/demo/ajax/noa/pages/chat.html#ChatContacts" class="me-2 mb-2" data-bs-toggle="tab">Contacts</a>
+                    </li>
+                    <li>
+                      <a href="https://spruko.com/demo/ajax/noa/pages/chat.html#ChatContacts1" data-bs-toggle="tab">Networks</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="tab-content main-chat-list flex-2">
+                <div class="tab-pane active" id="ChatList">
+                  <div class="main-chat-list tab-pane">
+                    <a class="media new border-top-0" href="javascript: void(0);">
+                      <div class="main-img-user online">
+                        <img alt="" src="assets/images/users/5.jpg">
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Raymart Santiago</span>
+                          <span>10 min</span>
+                        </div>
+                        <p> Hey! there I'm available </p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <div class="main-img-user">
+                        <img alt="" src="assets/images/users/6.jpg">
+                        <span>3</span>
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Ariana Monino</span>
+                          <span>30 min</span>
+                        </div>
+                        <p>Good Morning</p>
+                      </div>
+                    </a>
+                    <a class="media selected" href="javascript: void(0);">
+                      <div class="main-img-user online">
+                        <img alt="" src="assets/images/users/9.jpg">
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Saul Goodmate</span>
+                          <span>9.40 am</span>
+                        </div>
+                        <p> Nice to meet you </p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <span class="avatar avatar-md brround bg-danger-transparent text-danger">J</span>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Joyce Chua</span>
+                          <span>11.20 am</span>
+                        </div>
+                        <p> Hi, How are you? </p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <div class="main-img-user">
+                        <img alt="" src="assets/images/users/4.jpg">
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Rolando Paloso</span>
+                          <span>1.38 pm</span>
+                        </div>
+                        <p> Hey! there I'm available </p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <div class="main-img-user">
+                        <div class="avatar avatar-md brround bg-primary-transparent text-primary">D</div>
+                        <span>1</span>
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Dexter dela Cruz</span>
+                          <span>4.08 pm</span>
+                        </div>
+                        <p>Typing...</p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <div class="main-img-user">
+                        <img alt="" src="assets/images/users/20.jpg">
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Maricel Villalon</span>
+                          <span>8.09 pm</span>
+                        </div>
+                        <p> Hey! there I'm available </p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <span class="avatar avatar-md brround bg-success-transparent text-success">M</span>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Maryjane Pechon</span>
+                          <span>1 day ago</span>
+                        </div>
+                        <p>I have some work</p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <div class="main-img-user">
+                        <img alt="" src="assets/images/users/5.jpg">
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Lovely Dela Cruz</span>
+                          <span>3 days ago</span>
+                        </div>
+                        <p>I have some work</p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <div class="avatar avatar-md brround bg-secondary-transparent">
+                        <i class="fe fe-user text-secondary"></i>
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Daniel Padilla</span>
+                          <span>5 days ago</span>
+                        </div>
+                        <p>I have some work</p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <div class="main-img-user">
+                        <img alt="" src="assets/images/users/3.jpg">
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>John Pratts</span>
+                          <span>20/06/2021</span>
+                        </div>
+                        <p>I have some work</p>
+                      </div>
+                    </a>
+                    <a class="media new" href="javascript: void(0);">
+                      <div class="main-img-user">
+                        <img alt="" src="assets/images/users/7.jpg">
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Socrates Itumay</span>
+                          <span>18/07/2021</span>
+                        </div>
+                        <p> Hey! there I'm available </p>
+                      </div>
+                    </a>
+                    <a class="media border-bottom-0" href="javascript: void(0);">
+                      <div class="main-img-user">
+                        <img alt="" src="assets/images/users/6.jpg">
+                      </div>
+                      <div class="media-body">
+                        <div class="media-contact-name">
+                          <span>Samuel Lerin</span>
+                          <span>29/07/2021</span>
+                        </div>
+                        <p> Hey! there I'm available </p>
+                      </div>
+                    </a>
+                  </div>
+                  <!-- main-chat-list -->
+                </div>
+                <!-- main-chat-list -->
+                <div class="tab-pane" id="ChatGroups">
+                  <a href="javascript: void(0);" class="d-flex align-items-center media border-top-0">
+                    <div class="mb-0 me-2">
+                      <div class="main-img-user online text-primary">
+                        <img alt="" src="assets/images/users/4.jpg">
+                        <span>2</span>
+                      </div>
+                    </div>
+                    <div class="align-items-center justify-content-between">
+                      <div class="media-body ms-2">
+                        <div class="media-contact-name">
+                          <span>Web Designers</span>
+                          <span></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ms-auto">
+                      <i class="contact-status text-primary fe fe-user-plus"></i>
+                    </div>
+                  </a>
+                  <a href="javascript: void(0);" class="d-flex align-items-center media">
+                    <div class="mb-0 me-2">
+                      <div class="main-img-user online">
+                        <img alt="" src="assets/images/users/4.jpg">
+                        <span>2</span>
+                      </div>
+                    </div>
+                    <div class="align-items-center justify-content-between">
+                      <div class="media-body ms-2">
+                        <div class="media-contact-name">
+                          <span>Project 2020</span>
+                          <span></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ms-auto">
+                      <i class="contact-status text-primary fe fe-user-plus"></i>
+                    </div>
+                  </a>
+                  <a href="javascript: void(0);" class="d-flex align-items-center media">
+                    <div class="mb-0 me-2">
+                      <div class="main-img-user online">
+                        <img alt="" src="assets/images/users/9.jpg">
+                        <span>2</span>
+                      </div>
+                    </div>
+                    <div class="align-items-center justify-content-between">
+                      <div class="media-body ms-2">
+                        <div class="media-contact-name">
+                          <span>Project 2021</span>
+                          <span></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ms-auto">
+                      <i class="contact-status text-primary fe fe-user-plus"></i>
+                    </div>
+                  </a>
+                  <a href="javascript: void(0);" class="d-flex align-items-center media">
+                    <div class="mb-0 me-2">
+                      <div class="main-img-user online">
+                        <img alt="" src="assets/images/users/12.jpg">
+                        <span>2</span>
+                      </div>
+                    </div>
+                    <div class="align-items-center justify-content-between">
+                      <div class="media-body ms-2">
+                        <div class="media-contact-name">
+                          <span>Freshers</span>
+                          <span></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ms-auto">
+                      <i class="contact-status text-primary fe fe-user-plus"></i>
+                    </div>
+                  </a>
+                  <a href="javascript: void(0);" class="d-flex align-items-center media">
+                    <div class="mb-0 me-2">
+                      <div class="main-img-user online">
+                        <img alt="" src="assets/images/users/6.jpg">
+                        <span>2</span>
+                      </div>
+                    </div>
+                    <div class="align-items-center justify-content-between">
+                      <div class="media-body ms-2">
+                        <div class="media-contact-name">
+                          <span>Experienced</span>
+                          <span></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ms-auto">
+                      <i class="contact-status text-primary fe fe-user-plus"></i>
+                    </div>
+                  </a>
+                  <a href="javascript: void(0);" class="d-flex align-items-center media">
+                    <div class="mb-0 me-2">
+                      <div class="main-img-user online">
+                        <img alt="" src="assets/images/users/7.jpg">
+                        <span>2</span>
+                      </div>
+                    </div>
+                    <div class="align-items-center justify-content-between">
+                      <div class="media-body ms-2">
+                        <div class="media-contact-name">
+                          <span>Freelancer</span>
+                          <span></span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="ms-auto">
+                      <i class="contact-status text-primary fe fe-user-plus"></i>
+                    </div>
+                  </a>
+                  <div class="text-center p-5">
+                    <a href="javascript: void(0);" class="btn btn-outline-primary">Create New Group</a>
+                  </div>
+                </div>
+                <div class="tab-pane" id="ChatContacts">
+                  <div>
+                    <div class="py-4 px-6 fw-bold">A</div>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/3.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Anna Sthesia</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Home</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/9.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Abraham Clark</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Mobile</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/4.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Anderson</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Office</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="mt-4">
+                    <div class="py-4 px-6 fw-bold">B</div>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/5.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Bernadette</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Mobile</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="mt-4">
+                    <div class="py-4 px-6 fw-bold">C</div>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/5.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Cameron Watson</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Home</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/20.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Christopher Arnold</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Mobile</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/2.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Clarkson Gray</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Home</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="mt-4">
+                    <div class="py-4 px-6 fw-bold">D</div>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/7.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Deirdre Short</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Home</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/12.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Dylan Gill</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Mobile</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/1.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Donna Davies</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Office</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                  </div>
+                  <div class="mt-4">
+                    <div class="py-4 px-6 fw-bold">E</div>
+                    <a href="javascript: void(0);" class="d-flex align-items-center media">
+                      <div class="mb-0 me-2">
+                        <div class="main-img-user online">
+                          <img alt="" src="assets/images/users/4.jpg">
+                          <span>2</span>
+                        </div>
+                      </div>
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-2">
+                          <div class="media-contact-name">
+                            <span>Elizabeth Scott</span>
+                            <span></span>
+                          </div>
+                          <div class="d-flex align-items-center">
+                            <p class="text-muted fs-13">Office</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="ms-auto">
+                        <i class="contact-status text-primary fe fe-message-square me-2"></i>
+                        <i class="contact-status text-success fe fe-phone-call me-2"></i>
+                        <i class="contact-status text-danger fe fe-video me-2"></i>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div class="tab-pane" id="ChatContacts1">
+                  <div>
+                    <div class="d-flex py-4 px-6 fw-bold">
+                      <span>Networks</span>
+                      <a class="ms-auto">
+                        <i class="fe fe-plus"></i>
+                      </a>
+                    </div>
+                    <a href="javascript: void(0);" class="align-items-center media">
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-4">
+                          <div class="media-contact-name">
+                            <span>Work</span>
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="align-items-center media">
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-4">
+                          <div class="media-contact-name">
+                            <span>Freelancer</span>
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="align-items-center media">
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-4">
+                          <div class="media-contact-name">
+                            <span>Personal</span>
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div>
+                    <div class="d-flex py-4 px-6 fw-bold">
+                      <span>Rooms</span>
+                      <a class="ms-auto">
+                        <i class="fe fe-plus"></i>
+                      </a>
+                    </div>
+                    <a href="javascript: void(0);" class="align-items-center media">
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-4">
+                          <div class="media-contact-name">
+                            <span>Project Managers</span>
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="align-items-center media">
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-4">
+                          <div class="media-contact-name">
+                            <span>Designers</span>
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                    <a href="javascript: void(0);" class="align-items-center media">
+                      <div class="align-items-center justify-content-between">
+                        <div class="media-body ms-4">
+                          <div class="media-contact-name">
+                            <span>Developers</span>
+                            <span></span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div>
+                    <div class="d-flex py-4 px-6 fw-bold">
+                      <span>On Hand Talk</span>
+                      <a class="ms-auto">
+                        <i class="fe fe-plus"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- main-chat-list -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-5">
+        <div class="card">
+          <div class="main-content-app pt-0">
+            <div class="main-content-body main-content-body-chat h-100">
+              <div class="main-chat-header pt-3 d-block d-sm-flex">
+                <div class="main-img-user online">
+                  <img alt="avatar" src="assets/images/users/1.jpg">
+                </div>
+                <div class="main-chat-msg-name mt-2">
+                  <p class="mb-0">Saul Goodmate</p>
+                  <span class="dot-label bg-success"></span>
+                  <small class="me-3">online</small>
+                </div>
+                <nav class="nav">
+                  <div>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search">
+                      <button class="btn ripple btn-primary input-group-text text-white border-0" type="button">
+                        <i class="fe fe-search"></i>
+                      </button>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+              <!-- main-chat-header -->
+              <div class="main-chat-body flex-2" id="ChatBody">
+                <div class="content-inner">
+                  <label class="main-chat-time">
+                    <span>2 days ago</span>
+                  </label>
+                  <div class="media flex-row-reverse chat-right">
+                    <div class="main-img-user online">
+                      <img alt="avatar" src="assets/images/users/20.jpg">
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper"> Nulla consequat massa quis enim. Donec pede justo, fringilla vel... </div>
+                      <div class="main-msg-wrapper"> rhoncus ut, imperdiet a, venenatis vitae, justo... </div>
+                      <div>
+                        <span>9:48 am</span>
+                        <a href="javascript:void(0);">
+                          <i class="icon ion-android-more-vertical"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media chat-left">
+                    <div class="main-img-user online">
+                      <img alt="avatar" src="assets/images/users/1.jpg">
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </div>
+                      <div>
+                        <span>9:32 am</span>
+                        <a href="javascript:void(0);">
+                          <i class="icon ion-android-more-vertical"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media flex-row-reverse chat-right">
+                    <div class="main-img-user online">
+                      <img alt="avatar" src="assets/images/users/20.jpg">
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor </div>
+                      <div class="main-msg-wrapper">
+                        <span class="text-dark">
+                          <span>
+                            <i class="fa fa-image fs-13 text-muted px-3"></i>
+                          </span>
+                          <span class="fs-13 mt-1"> Image_attach.jpg </span>
+                          <i class="fe fe-download mt-3 ms-4 text-muted pe-2"></i>
+                        </span>
+                      </div>
+                      <div>
+                        <span>11:22 am</span>
+                        <a href="javascript:void(0);">
+                          <i class="icon ion-android-more-vertical"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <label class="main-chat-time">
+                    <span>Yesterday</span>
+                  </label>
+                  <div class="media chat-left">
+                    <div class="main-img-user online">
+                      <img alt="avatar" src="assets/images/users/1.jpg">
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. </div>
+                      <div>
+                        <span>9:32 am</span>
+                        <a href="javascript:void(0);">
+                          <i class="icon ion-android-more-vertical"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media flex-row-reverse chat-right">
+                    <div class="main-img-user online">
+                      <img alt="avatar" src="assets/images/users/20.jpg">
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper"> Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. </div>
+                      <div class="main-msg-wrapper"> Nullam dictum felis eu pede mollis pretium </div>
+                      <div>
+                        <span>9:48 am</span>
+                        <a href="javascript:void(0);">
+                          <i class="icon ion-android-more-vertical"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <label class="main-chat-time">
+                    <span>Today</span>
+                  </label>
+                  <div class="media chat-left">
+                    <div class="main-img-user online">
+                      <img alt="avatar" src="assets/images/users/1.jpg">
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper"> Maecenas tempus, tellus eget condimentum rhoncus </div>
+                      <div class="main-msg-wrapper">
+                        <img alt="avatar" class="w-10 h-10" src="assets/images/users/3.jpg">
+                        <img alt="avatar" class="w-10 h-10" src="assets/images/users/4.jpg">
+                        <img alt="avatar" class="w-10 h-10" src="assets/images/users/5.jpg">
+                      </div>
+                      <div>
+                        <span>10:12 am</span>
+                        <a href="javascript:void(0);">
+                          <i class="icon ion-android-more-vertical"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="media flex-row-reverse chat-right">
+                    <div class="main-img-user online">
+                      <img alt="avatar" src="assets/images/users/20.jpg">
+                    </div>
+                    <div class="media-body">
+                      <div class="main-msg-wrapper"> Maecenas tempus, tellus eget condimentum rhoncus </div>
+                      <div class="main-msg-wrapper"> Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. </div>
+                      <div>
+                        <span>09:40 am</span>
+                        <a href="javascript:void(0);">
+                          <i class="icon ion-android-more-vertical"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="main-chat-footer pt-5">
+                <input class="form-control" placeholder="Type your message here..." type="text">
+                <a class="nav-link" href="javascript:void(0);">
+                  <i class="fe fe-paperclip"></i>
+                </a>
+                <button type="button" class="btn btn-icon  btn-primary brround">
+                  <i class="fa fa-paper-plane-o"></i>
+                </button>
+                <nav class="nav"></nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-12 col-xl-3">
+        <div class="card">
+          <div class="card-body profile-details-main pb-0">
+            <div class="main-content-app">
+              <nav class="nav float-end">
+                <div class="dropdown">
+                  <a class="nav-link text-muted fs-20 p-0 ps-3" href="javascript:void(0);" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fe fe-more-vertical"></i>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-start">
+                    <a class="dropdown-item" href="javascript: void(0);">
+                      <i class="fe fe-user me-1"></i> Profile </a>
+                    <a class="dropdown-item" href="javascript: void(0);">
+                      <i class="fe fe-edit me-1"></i> Edit </a>
+                    <a class="dropdown-item" href="javascript: void(0);">
+                      <i class="fe fe-users me-1"></i> New Group </a>
+                    <a class="dropdown-item" href="javascript: void(0);">
+                      <i class="fe fe-settings me-1"></i> Settings </a>
+                    <a class="dropdown-item" href="javascript: void(0);">
+                      <i class="fe fe-trash-2 me-1"></i> Delete </a>
+                  </div>
+                </div>
+              </nav>
+              <div class="text-center chat-image p-4 pb-0 mb-4 br-5">
+                <div class="rounded-circle chat-profile">
+                  <a class="rounded-circle" href="https://spruko.com/demo/ajax/noa/pages/profile.html">
+                    <img alt="profile-avatar" src="assets/images/users/1.jpg" class="avatar avatar-xl rounded-circle">
+                  </a>
+                </div>
+                <div class="main-chat-msg-name">
+                  <a href="https://spruko.com/demo/ajax/noa/pages/profile.html">
+                    <h5 class="mb-1 text-dark fw-semibold">Saul Goodmate</h5>
+                  </a>
+                  <span class="dot-label bg-success"></span>
+                  <small class="me-3">Available</small>
+                  <p class="text-muted mt-0 mb-1 pt-0 fs-13">Senior Web Designer</p>
+                </div>
+              </div>
+              <div>
+                <h6 class="mb-3">Contact Details :</h6>
+                <div class="d-flex mb-2">
+                  <div>
+                    <a class="nav-link border rounded-pill chat-profile me-2" href="javascript:void(0);">
+                      <i class="fe fe-mail"></i>
+                    </a>
+                  </div>
+                  <div class="ms-2">
+                    <p class="fs-13 fw-semibold mb-0">Email</p>
+                    <p class="fs-12 text-muted">elenagilbert@spruko.com</p>
+                  </div>
+                </div>
+                <div class="d-flex mb-2 mt-2">
+                  <div>
+                    <a class="nav-link border rounded-pill chat-profile me-2" href="javascript:void(0);">
+                      <i class="fe fe-phone"></i>
+                    </a>
+                  </div>
+                  <div class="ms-2">
+                    <p class="fs-13 fw-semibold mb-0">Phone</p>
+                    <p class="fs-12 text-muted">+773(11)-16-337.</p>
+                  </div>
+                </div>
+                <div class="d-flex mb-2 mt-2">
+                  <div>
+                    <a class="nav-link border rounded-pill chat-profile me-2" href="javascript:void(0);">
+                      <i class="fe fe-map-pin"></i>
+                    </a>
+                  </div>
+                  <div class="ms-2">
+                    <p class="fs-13 fw-semibold mb-0">Address</p>
+                    <p class="fs-12 text-muted">2nd street,houston texas,united states.</p>
+                  </div>
+                </div>
+                <div class="d-flex mb-2 mt-2">
+                  <div>
+                    <a class="nav-link border rounded-pill chat-profile me-2" href="javascript:void(0);">
+                      <i class="fe fe-linkedin"></i>
+                    </a>
+                  </div>
+                  <div class="ms-2">
+                    <p class="fs-13 fw-semibold mb-0">Linkedin</p>
+                    <p class="fs-12 text-muted">@895434</p>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h6 class="mt-5 mb-0">Shared Files :</h6>
+                <div class="border-0 p-0 mb-4 pt-4">
+                  <div class="d-flex align-items-center">
+                    <div class="ps-0 me-3">
+                      <i class="fa fa-folder-open shared-files text-muted"></i>
+                    </div>
+                    <div class="d-block w-100">
+                      <div class="d-flex align-items-center">
+                        <div class="mt-0">
+                          <h5 class="mb-1 fs-13 fw-semibold text-dark"> Demo_Document</h5>
+                          <p class="mb-0 fs-13 text-muted">ppt <span class="fs-11 ms-2">1.2 mb</span>
+                          </p>
+                        </div>
+                        <a href="javascript:void(0);" class="ms-auto fs-14 text-default" data-bs-toggle="tooltip" data-bs-placement="top" title="Download">
+                          <i class="fe fe-download"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-0 p-0 mb-4">
+                  <div class="d-flex align-items-center">
+                    <div class="ps-0 me-3">
+                      <i class="fa fa-image shared-files text-muted"></i>
+                    </div>
+                    <div class="d-block w-100">
+                      <div class="d-flex align-items-center">
+                        <div class="mt-0">
+                          <h5 class="mb-1 fs-13 fw-semibold text-dark">Image_attachment</h5>
+                          <p class="mb-0 fs-13 text-muted">img <span class="fs-11 ms-2">12 mb</span>
+                          </p>
+                        </div>
+                        <a href="javascript:void(0);" class="ms-auto fs-14 text-default" data-bs-toggle="tooltip" data-bs-placement="top" title="Download">
+                          <i class="fe fe-download"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="border-0 p-0 mb-0">
+                  <div class="d-flex align-items-center">
+                    <div class="ps-0 me-3">
+                      <i class="fa fa-envelope shared-files text-muted"></i>
+                    </div>
+                    <div class="d-block w-100">
+                      <div class="d-flex align-items-center">
+                        <div class="mt-0">
+                          <h5 class="mb-1 fs-13 fw-semibold text-dark"> Video_attachment</h5>
+                          <p class="mb-0 fs-13 text-muted">Video <span class="fs-12 ms-2">16 mb</span>
+                          </p>
+                        </div>
+                        <a href="javascript:void(0);" class="ms-auto fs-14 text-default" data-bs-toggle="tooltip" data-bs-placement="top" title="Download">
+                          <i class="fe fe-download"></i>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h5 class="mb-3 pt-5">Media :</h5>
+                <div class="row row-sm chat-media">
+                  <div class="col-xl-4 col-lg-2 col-md-3 col-4">
+                    <div class="card custom-card border br-5">
+                      <img src="assets/images/files/doc.png" alt="img" class="br-5">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-2 col-md-3 col-4">
+                    <div class="card custom-card border br-5">
+                      <img src="assets/images/files/file.png" alt="img" class="br-5">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-2 col-md-3 col-4">
+                    <div class="card custom-card border br-5">
+                      <img src="assets/images/files/image.png" alt="img" class="br-5">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-2 col-md-3 col-4">
+                    <div class="card custom-card border br-5">
+                      <img src="assets/images/files/ppt.png" alt="img" class="br-5">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-2 col-md-3 col-4">
+                    <div class="card custom-card border br-5">
+                      <img src="assets/images/files/word.png" alt="img" class="br-5">
+                    </div>
+                  </div>
+                  <div class="col-xl-4 col-lg-2 col-md-3 col-4">
+                    <div class="card custom-card border br-5">
+                      <img src="assets/images/files/zip.png" alt="img" class="br-5">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Row -->
+    <!--- TABS JS -->
+  <script src="assets/plugins/tabs/jquery.multipurpose_tabcontent.js"></script>
+  <script src="assets/plugins/tabs/tab-content.js"></script>
+  <!-- Internal Chat js-->
+  <script src="assets/js/chat.js"></script>
+  </body>
+</html>

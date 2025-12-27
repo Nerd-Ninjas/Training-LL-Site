@@ -1,0 +1,775 @@
+<!-- saved from url=(0052)https://spruko.com/demo/ajax/noa/pages/checkout.html -->
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <style>
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 300;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmSU5fBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu72xKOzY.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu5mxKOzY.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7mxKOzY.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4WxKOzY.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7WxKOzY.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu7GxKOzY.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOmCnqEu92Fr1Mu4mxK.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 500;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmEU9fBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+
+      /* cyrillic-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCRc4EsA.woff2) format('woff2');
+        unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+      }
+
+      /* cyrillic */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfABc4EsA.woff2) format('woff2');
+        unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+      }
+
+      /* greek-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCBc4EsA.woff2) format('woff2');
+        unicode-range: U+1F00-1FFF;
+      }
+
+      /* greek */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBxc4EsA.woff2) format('woff2');
+        unicode-range: U+0370-03FF;
+      }
+
+      /* vietnamese */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfCxc4EsA.woff2) format('woff2');
+        unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+      }
+
+      /* latin-ext */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfChc4EsA.woff2) format('woff2');
+        unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+      }
+
+      /* latin */
+      @font-face {
+        font-family: 'Roboto';
+        font-style: normal;
+        font-weight: 700;
+        font-display: swap;
+        src: url(https://fonts.gstatic.com/s/roboto/v20/KFOlCnqEu92Fr1MmWUlfBBc4.woff2) format('woff2');
+        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+      }
+    </style>
+    <style>
+      .ucbzx-button-wrapper {
+        position: absolute !important;
+        z-index: 1000 !important;
+        top: 0 !important;
+        right: 0 !important;
+      }
+
+      .ucbzx-button {
+        display: block;
+        border: none !important;
+        /* outline: none !important; */
+        background: #3c3c54 !important;
+        padding: 0 !important;
+        border-radius: 5px;
+        width: 36px !important;
+        height: 36px !important;
+      }
+
+      .ucbzx-button:active {
+        border: none !important;
+      }
+
+      .ucbzx-button:disabled {
+        cursor: default !important;
+      }
+
+      .ucbzx-download-img {
+        display: block !important;
+        width: 36px !important;
+        height: 36px !important;
+        cursor: pointer !important;
+        margin: 0 !important;
+      }
+
+      .ucbzx-hide {
+        display: none !important;
+      }
+
+      .ucbzx-loader {
+        display: block;
+        box-sizing: content-box !important;
+        width: 30px !important;
+        height: 30px !important;
+        padding: 3px !important;
+        animation: rotate 1s linear infinite;
+        margin: 0 !important;
+      }
+
+      /*
+    RESOLUTIONS CHOICE
+*/
+      .ucbzx-resolutions-list {
+        position: absolute !important;
+        top: 36px !important;
+        right: 0 !important;
+        background: #3c3c54 !important;
+        color: #dbdbdb !important;
+        font-family: 'Roboto', sans-serif !important;
+        font-size: 14px !important;
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+
+      .ucbzx-resolutions-list li {
+        margin: 4px !important;
+        padding: 0 !important;
+        font-weight: bold !important;
+        white-space: nowrap !important;
+        width: 130px !important;
+        height: 30px !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+      }
+
+      .ucbzx-list-item-tickbox {
+        width: 20px !important;
+        height: 20px !important;
+        background: rgba(255, 255, 255, 0.219) !important;
+        /* border-radius: 5px !important; */
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        /* font-size: 17px !important; */
+        /* border: 1px solid rgba(255, 255, 255, 0.835) !important; */
+        cursor: pointer !important;
+        margin-left: 4px !important;
+      }
+
+      .ucbzx-resolutions-list>li::before {
+        display: none;
+      }
+
+      .ucbzx-list-item-tickbox:not(.ucbzx-list-item-tickbox-checked):hover {
+        background: rgba(255, 255, 255, 0.37) !important;
+      }
+
+      .ucbzx-list-item-tickbox.ucbzx-list-item-tickbox-checked {
+        cursor: default !important;
+      }
+
+      .ucbzx-list-item-tickbox-checked::after {
+        content: "\2713" !important;
+        color: white !important;
+      }
+
+      .ucbzx-list-item-text {
+        /* border-radius: 5px !important; */
+        flex-grow: 1 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        cursor: pointer !important;
+        height: 100% !important;
+        margin-left: 10px !important;
+      }
+
+      .ucbzx-list-item-text:hover {
+        background: rgba(255, 255, 255, 0.37) !important;
+        color: white !important;
+      }
+
+      /* account for the fact that we got rid of the tickbox there */
+      .ucbzx-resolutions-list li[data-type="captions"] .ucbzx-list-item-text {
+        margin-left: 34px !important;
+        font-style: italic;
+      }
+
+      /*
+    MISC
+*/
+      .ucbzx-arrow-container {
+        background: none !important;
+        position: absolute !important;
+        top: 36px !important;
+        left: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        border-left: 18px solid transparent !important;
+        border-right: 18px solid transparent !important;
+        border-top: 18px solid #3c3c54 !important;
+        /* border-bottom: none !important; */
+        cursor: pointer !important;
+      }
+
+      .ucbzx-arrow-container::after {
+        position: absolute !important;
+        top: -18px !important;
+        left: -4px !important;
+        content: "" !important;
+        border: 1px solid #dbdbdb !important;
+        border-width: 0 3px 3px 0 !important;
+        display: inline-block !important;
+        padding: 3px !important;
+        transform: rotate(45deg);
+      }
+
+      .ucbzx-button:focus,
+      .ucbzx-arrow-container:focus,
+      .ucbzx-resolutions-list:focus,
+      .ucbzx-list-item-tickbox:focus,
+      .ucbzx-list-item-text:focus {
+        outline: 1px solid white !important;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /*
+    RESET STYLES
+*/
+      .ucbzx-button-wrapper button {
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: auto;
+        overflow: visible;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        outline: none;
+        line-height: normal;
+        -webkit-font-smoothing: inherit;
+        -moz-osx-font-smoothing: inherit;
+        -webkit-appearance: none;
+      }
+
+      .ucbzx-button-wrapper li,
+      .ucbzx-button-wrapper li * {
+        margin: 0;
+        font: inherit;
+        font-style: inherit;
+        font-size: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-header">
+      <div>
+        <h1 class="page-title">Checkout</h1>
+      </div>
+      <div class="ms-auto pageheader-btn">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">Apps</li>
+          <li class="breadcrumb-item">
+            <a href="javascript:void(0);">E-Commerce</a>
+          </li>
+          <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+        </ol>
+      </div>
+    </div>
+    <!-- PAGE-HEADER END -->
+    <!-- ROW-1 OPEN -->
+    <div class="row">
+      <div class="col-xl-8 col-md-12">
+        <div class="card">
+          <div class="card-header border-bottom">
+            <h3 class="card-title">Billing Information</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="form-label">First Name <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" placeholder="First name">
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Last Name <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" placeholder="Last name">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">Company Name <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" placeholder="Company name">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">Email address <span class="text-red">*</span>
+                  </label>
+                  <input type="email" class="form-control" placeholder="Email">
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">Country <span class="text-red">*</span>
+                  </label>
+                  <select class="form-control select2 form-select" data-placeholder="Select">
+                    <option label="Select"></option>
+                    <option value="1">Germany</option>
+                    <option value="2">Canada</option>
+                    <option value="3">Usa</option>
+                    <option value="4">Aus</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="form-label">Address <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" placeholder="Home Address">
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="form-label">City <span class="text-red">*</span>
+                  </label>
+                  <input type="text" class="form-control" placeholder="City">
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-6">
+                <div class="form-group">
+                  <label class="form-label">Postal Code <span class="text-red">*</span>
+                  </label>
+                  <input type="number" class="form-control" placeholder="ZIP Code">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header border-bottom">
+            <h3 class="card-title">Payment Information</h3>
+          </div>
+          <div class="card-body">
+            <div class="card-pay">
+              <ul class="tabs-menu nav checkout">
+                <li>
+                  <a href="https://spruko.com/demo/ajax/noa/pages/checkout.html#tab20" class="active" data-bs-toggle="tab">
+                    <i class="fa fa-credit-card"></i> Credit Card </a>
+                </li>
+                <li>
+                  <a href="https://spruko.com/demo/ajax/noa/pages/checkout.html#tab21" data-bs-toggle="tab">
+                    <i class="fa fa-paypal"></i> Paypal </a>
+                </li>
+                <li>
+                  <a href="https://spruko.com/demo/ajax/noa/pages/checkout.html#tab22" data-bs-toggle="tab">
+                    <i class="fa fa-university"></i> Bank Transfer </a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active show" id="tab20">
+                  <div class="bg-danger-transparent-2 text-danger br-3 mb-4" role="alert">Please Enter Valid Details</div>
+                  <div class="form-group">
+                    <label class="form-label">Card Holder Name</label>
+                    <input type="text" class="form-control" placeholder="First Name">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Card number</label>
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search for...">
+                      <span class="input-group-text btn btn-success shadow-none">
+                        <i class="fa fa-cc-visa"></i> &nbsp; <i class="fa fa-cc-amex"></i> &nbsp; <i class="fa fa-cc-mastercard"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <div class="form-group">
+                        <label class="form-label">Expiration</label>
+                        <div class="input-group">
+                          <input type="number" class="form-control" placeholder="MM" name="Month">
+                          <input type="number" class="form-control" placeholder="YYYY" name="Year">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label class="form-label">CVV <i class="fa fa-question-circle"></i>
+                        </label>
+                        <input type="number" class="form-control" required="">
+                      </div>
+                    </div>
+                  </div>
+                  <a href="javascript: void(0);" class="btn btn-primary">Confirm</a>
+                </div>
+                <div class="tab-pane" id="tab21">
+                  <p>Paypal is easiest way to pay online</p>
+                  <p>
+                    <a href="javascript: void(0);" class="btn btn-primary">
+                      <i class="fa fa-paypal"></i> Log in my Paypal </a>
+                  </p>
+                  <p class="mb-0">
+                    <strong>Note:</strong> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                  </p>
+                </div>
+                <div class="tab-pane" id="tab22">
+                  <p>Bank account details</p>
+                  <dl class="card-text">
+                    <dt>BANK: </dt>
+                    <dd> THE UNION BANK 0456</dd>
+                  </dl>
+                  <dl class="card-text">
+                    <dt>Account Number: </dt>
+                    <dd> 67542897653214</dd>
+                  </dl>
+                  <dl class="card-text">
+                    <dt>IBAN: </dt>
+                    <dd>543218769</dd>
+                  </dl>
+                  <p class="mb-0">
+                    <strong>Note:</strong> Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-md-12">
+        <div class="card cart">
+          <div class="card-header border-bottom">
+            <h3 class="card-title">Your Order</h3>
+          </div>
+          <div class="card-body">
+            <div class="d-md-flex">
+              <div class="d-flex">
+                <img class="img-fluid avatar-xl border p-0 br-7" src="assets/images/pngs/9.png" alt="img">
+                <div class="ms-3 mt-2">
+                  <h4 class="mb-1 fw-semibold fs-14">
+                    <a href="javascript: void(0);">Rounded Shape Digital Watch For Men</a>
+                  </h4>
+                  <div class="mb-2 text-warning fs-14">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="ms-auto my-auto">
+                <span class="me-4 my-auto fs-16 fw-semibold">$438</span>
+              </div>
+            </div>
+            <div class="d-md-flex mt-5">
+              <div class="d-flex">
+                <img class="img-fluid avatar-xl border p-0 br-7" src="assets/images/pngs/1.png" alt="img">
+                <div class="ms-3 mt-2">
+                  <h4 class="mb-1 fw-semibold fs-14">
+                    <a href="javascript: void(0);">Digital Camera Pro 30.2MP With Lens</a>
+                  </h4>
+                  <div class="mb-2 text-warning fs-14">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-half-o"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="ms-auto my-auto">
+                <span class="me-4 my-auto fs-16 fw-semibold">$765</span>
+              </div>
+            </div>
+            <div class="d-md-flex mt-5">
+              <div class="d-flex">
+                <img class="img-fluid avatar-xl border p-0 br-7" src="assets/images/pngs/6.png" alt="img">
+                <div class="ms-3 mt-2">
+                  <h4 class="mb-1 fw-semibold fs-14">
+                    <a href="javascript: void(0);">Wood Photo Frame(M) With Wall Decorators</a>
+                  </h4>
+                  <div class="mb-2 text-warning fs-14">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star-o"></i>
+                    <i class="fa fa-star-o"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="ms-auto my-auto">
+                <span class="me-4 my-auto fs-16 fw-semibold">$543</span>
+              </div>
+            </div>
+            <table class="table mt-5">
+              <tbody>
+                <tr>
+                  <td class="border-top-0">Sub Total</td>
+                  <td class="text-end border-top-0">$4,360</td>
+                </tr>
+                <tr>
+                  <td class="border-top-0">Discount</td>
+                  <td class="text-end border-top-0">5%</td>
+                </tr>
+                <tr>
+                  <td class="border-top-0">Shipping</td>
+                  <td class="text-end border-top-0">Free</td>
+                </tr>
+                <tr>
+                  <td class="fs-20 border-top-0">Total</td>
+                  <td class="text-end fs-20 border-top-0">$3,976</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer text-end">
+            <a href="javascript: void(0);" class="btn btn-primary">Place Order</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- COL-END -->
+    <!-- ROW-1 CLOSED -->
+     <!-- SELECT2 JS -->
+  <script src="assets/plugins/select2/select2.full.min.js"></script>
+  <!-- INTERNAL Bootstrap-Datepicker js-->
+  <script src="assets/plugins/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+  <!-- TIMEPICKER JS -->
+  <script src="assets/plugins/time-picker/jquery.timepicker.js"></script>
+  <script src="assets/plugins/time-picker/toggles.min.js"></script>
+  <!-- DATEPICKER JS -->
+  <script src="assets/plugins/date-picker/date-picker.js"></script>
+  <script src="assets/plugins/date-picker/jquery-ui.js"></script>
+  <script src="assets/plugins/input-mask/jquery.maskedinput.js"></script>
+  <!-- CHECKOUT JS-->
+  <script src="assets/js/checkout.js"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    margin-top: 20%;
+}
+
+#quizContainer {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#questionNav {
+    margin-bottom: 20px;
+}
+
+#questionNav button {
+    margin: 2px;
+    padding: 5px 10px;
+}
+
+#questionContent {
+    margin-bottom: 20px;
+}
+
+#navigation {
+    text-align: center;
+}
+
+#navigation button {
+    margin: 5px;
+    padding: 10px 20px;
+}
+
+#timer {
+    margin-bottom: 20px;
+}
