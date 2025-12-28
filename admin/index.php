@@ -88,12 +88,6 @@ $logged_in_users = $query_logged_in->fetch(PDO::FETCH_ASSOC)['total'];
 
 <body class="app sidebar-mini ltr">
 
-	<!-- GLOBAL-LOADER -->
-	<div id="global-loader">
-		<img src="../assets/images/loader.svg" class="loader-img" alt="Loader">
-	</div>
-	<!-- /GLOBAL-LOADER -->
-
 	<!-- PAGE -->
 	<div class="page">
 		<div class="page-main">
@@ -186,9 +180,9 @@ $logged_in_users = $query_logged_in->fetch(PDO::FETCH_ASSOC)['total'];
 						</a>
 					</li>
 					<li class="slide">
-						<a href="users.php" class="side-menu__item">
+						<a href="user_management.php" class="side-menu__item">
 							<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-							<span class="side-menu__label">Users</span>
+							<span class="side-menu__label">User Management</span>
 						</a>
 					</li>
 					<li class="slide">
@@ -226,7 +220,7 @@ $logged_in_users = $query_logged_in->fetch(PDO::FETCH_ASSOC)['total'];
 								</div>
 								<div class="col-md-4 ms-auto">
 									<div class="btn-list">
-										<a href="users.php" class="btn btn-primary">
+										<a href="user_management.php" class="btn btn-primary">
 											<i class="icon icon-user me-1"></i> Manage Users
 										</a>
 									</div>
