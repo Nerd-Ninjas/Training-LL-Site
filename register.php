@@ -4,6 +4,10 @@ require_once("includes/head_login.php");
 require_once("includes/classes/FormSanitizer.php");
 require_once("includes/classes/Constants.php");
 require_once("includes/classes/Account.php");
+
+// Content Security Policy headers - allows scripts, styles from self and Google Fonts
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com;");
+
 if($_SESSION["username"]){
 header("Location: main.php#index.php");
 }
@@ -96,29 +100,31 @@ if(!isset($errorMsg))
             <span class="login100-form-title"> <img src="assets/images/brand/full-logo-light.png" class="header-brand-img" alt=""></span>
 			
 			
-            <div class="wrap-input100 validate-input" data-bs-validate="Valid email is required: ex@abc.xyz">
-              <input class="input100" type="text" name="firstName" placeholder="First Name" wfd-id="id6">
+            <div class="wrap-input100 validate-input" data-bs-validate="First name is required">
+              <label for="firstName" class="sr-only">First Name</label>
+              <input id="firstName" class="input100" type="text" name="firstName" placeholder="First Name" autocomplete="given-name" required>
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="mdi mdi-account" aria-hidden="true"></i>
               </span>
             </div>
 			
-			
-			<div class="wrap-input100 validate-input" data-bs-validate="Valid email is required: ex@abc.xyz">
-              <input class="input100" type="text" name="lastName" placeholder="Last Name" wfd-id="id6">
+			<div class="wrap-input100 validate-input" data-bs-validate="Last name is required">
+              <label for="lastName" class="sr-only">Last Name</label>
+              <input id="lastName" class="input100" type="text" name="lastName" placeholder="Last Name" autocomplete="family-name" required>
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="mdi mdi-account-circle" aria-hidden="true"></i>
               </span>
             </div>
 			
-			
-			<div class="wrap-input100 validate-input" data-bs-validate="Valid email is required: ex@abc.xyz">
-             <select name="gender" id="gender" class="input100" title="Select Gender">
-			 <option value="1">1-Male</option>
-			 <option value="2">2-Female</option>
-			 <option value="3">3-Transgender</option>
+			<div class="wrap-input100 validate-input" data-bs-validate="Please select a gender">
+              <label for="gender" class="sr-only">Gender</label>
+              <select id="gender" name="gender" class="input100" required>
+			 <option value="">Select Gender</option>
+			 <option value="1">Male</option>
+			 <option value="2">Female</option>
+			 <option value="3">Transgender</option>
             </select>
               <span class="focus-input100"></span>
               <span class="symbol-input100">
@@ -126,8 +132,9 @@ if(!isset($errorMsg))
               </span>
             </div>
 			
-			<div class="wrap-input100 validate-input" data-bs-validate="Valid email is required: ex@abc.xyz">
-              <input class="input100" type="number" name="mobileNumber" placeholder="Mobile Number" wfd-id="id6">
+			<div class="wrap-input100 validate-input" data-bs-validate="Valid phone number is required">
+              <label for="mobileNumber" class="sr-only">Mobile Number</label>
+              <input id="mobileNumber" class="input100" type="tel" name="mobileNumber" placeholder="Mobile Number" autocomplete="tel" required>
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="mdi mdi-phone" aria-hidden="true"></i>
@@ -135,14 +142,16 @@ if(!isset($errorMsg))
             </div>
 			
             <div class="wrap-input100 validate-input" data-bs-validate="Valid email is required: ex@abc.xyz">
-              <input class="input100" type="text" name="email" placeholder="Email" wfd-id="id7">
+              <label for="email" class="sr-only">Email Address</label>
+              <input id="email" class="input100" type="email" name="email" placeholder="Email" autocomplete="email" required>
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="zmdi zmdi-email" aria-hidden="true"></i>
               </span>
             </div>
             <div class="wrap-input100 validate-input" data-bs-validate="Password is required">
-              <input class="input100" type="password" name="password" placeholder="Password" wfd-id="id8">
+              <label for="password" class="sr-only">Password</label>
+              <input id="password" class="input100" type="password" name="password" placeholder="Password" autocomplete="new-password" required>
               <span class="focus-input100"></span>
               <span class="symbol-input100">
                 <i class="zmdi zmdi-lock" aria-hidden="true"></i>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1deb5ubuntu1
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Dec 27, 2025 at 12:35 PM
--- Server version: 10.6.22-MariaDB-0ubuntu0.22.04.1
--- PHP Version: 8.1.2-1ubuntu2.21
+-- Host: 127.0.0.1
+-- Generation Time: Dec 28, 2025 at 09:02 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `learnlikes_gurukulam_server`
+-- Database: `learnlikes_gurukulam`
 --
 
 -- --------------------------------------------------------
@@ -96,18 +96,20 @@ CREATE TABLE `courses_master` (
   `course_name` text DEFAULT NULL,
   `approved` int(11) NOT NULL DEFAULT 0,
   `approvedBy` varchar(8) DEFAULT NULL,
-  `approvedDate` datetime DEFAULT NULL
+  `approvedDate` datetime DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `courses_master`
 --
 
-INSERT INTO `courses_master` (`id`, `course_id`, `course_name`, `approved`, `approvedBy`, `approvedDate`) VALUES
-(1, 'MSTE', 'Microsoft Tools for Education', 1, '100000', '2023-05-31 13:18:41'),
-(2, 'CVBG', 'Cyber Security Beginner', 1, '100000', '2024-05-12 00:15:48'),
-(3, 'AIJM', 'Artificial Intelligence for Journalism and Multimedia ', 1, '100000', '2025-02-10 17:03:08'),
-(4, 'AIHD', 'AI for HR and Delivery Managers', 1, '100000', '2025-05-19 23:00:48');
+INSERT INTO `courses_master` (`id`, `course_id`, `course_name`, `approved`, `approvedBy`, `approvedDate`, `description`, `image`) VALUES
+(1, 'MSTE', 'Microsoft Tools for Education', 1, '100000', '2023-05-31 13:18:41', NULL, NULL),
+(2, 'CVBG', 'Cyber Security Beginner', 1, '100000', '2024-05-12 00:15:48', NULL, NULL),
+(3, 'AIJM', 'Artificial Intelligence for Journalism and Multimedia ', 1, '100000', '2025-02-10 17:03:08', NULL, NULL),
+(4, 'AIHD', 'AI for HR and Delivery Managers', 1, '100000', '2025-05-19 23:00:48', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1187,7 +1189,33 @@ INSERT INTO `currentusers` (`id`, `username`, `loginDate`, `logoutDate`, `lastAc
 (989, 'PLdcxJoEiTwUZQN', '2025-09-30 16:00:36', NULL, NULL, '2UYip4'),
 (990, 'PLdcxJoEiTwUZQN', '2025-10-24 17:44:30', NULL, NULL, 'EBMyAL'),
 (991, 'PLdcxJoEiTwUZQN', '2025-12-02 08:57:10', NULL, NULL, '3KzYhR'),
-(992, 'PLdcxJoEiTwUZQN', '2025-12-03 09:00:35', NULL, NULL, 'muKpkL');
+(992, 'PLdcxJoEiTwUZQN', '2025-12-03 09:00:35', NULL, NULL, 'muKpkL'),
+(993, 'wWk41lge0t61YKD', '2025-12-27 15:35:44', '2025-12-27 15:59:20', '2025-12-27 15:35:44', 'yZBX0L'),
+(994, 'wWk41lge0t61YKD', '2025-12-27 15:59:26', '2025-12-27 15:59:34', '2025-12-27 15:59:26', 'EGqJlu'),
+(995, 'wWk41lge0t61YKD', '2025-12-27 16:16:57', '2025-12-27 16:20:31', '2025-12-27 16:16:57', '60tOWs'),
+(996, 'wWk41lge0t61YKD', '2025-12-27 16:21:11', '2025-12-27 16:21:14', '2025-12-27 16:21:11', 'mAAh9y'),
+(997, 'wWk41lge0t61YKD', '2025-12-27 16:25:40', '2025-12-27 16:25:54', '2025-12-27 16:25:40', '26rkig'),
+(998, 'wWk41lge0t61YKD', '2025-12-27 16:27:59', '2025-12-27 16:30:13', '2025-12-27 16:27:59', 'WHk4FJ'),
+(999, 'wWk41lge0t61YKD', '2025-12-27 16:32:24', '2025-12-27 16:33:08', '2025-12-27 16:32:24', 'Uh4xCd'),
+(1000, 'wWk41lge0t61YKD', '2025-12-27 16:41:48', '2025-12-27 16:44:26', '2025-12-27 16:41:48', 'JQ0Ix6'),
+(1001, 'wWk41lge0t61YKD', '2025-12-27 16:54:14', '2025-12-27 16:54:40', '2025-12-27 16:54:14', 'i34RoQ'),
+(1002, 'wWk41lge0t61YKD', '2025-12-27 17:28:25', '2025-12-27 17:35:10', '2025-12-27 17:28:25', 'FHBt5r'),
+(1003, 'wWk41lge0t61YKD', '2025-12-27 17:35:46', NULL, NULL, 'KMGeBg'),
+(1004, 'wWk41lge0t61YKD', '2025-12-27 19:44:17', '2025-12-27 20:39:22', '2025-12-27 19:44:17', 'Z4gjC9'),
+(1005, 'wWk41lge0t61YKD', '2025-12-27 20:39:31', '2025-12-27 20:43:26', '2025-12-27 20:39:31', 'wLebju'),
+(1006, 'wWk41lge0t61YKD', '2025-12-27 21:06:16', NULL, NULL, '0hzW1S'),
+(1007, 'wWk41lge0t61YKD', '2025-12-28 11:24:52', '2025-12-28 11:28:10', '2025-12-28 11:24:52', 'TdDKTz'),
+(1008, 'admin', '2025-12-28 11:28:26', '2025-12-28 11:30:48', '2025-12-28 11:28:26', 'Wdolhs'),
+(1009, 'admin', '2025-12-28 11:30:52', '2025-12-28 11:34:08', '2025-12-28 11:30:52', 'UqDIEY'),
+(1010, 'admin', '2025-12-28 11:34:12', '2025-12-28 11:48:12', '2025-12-28 11:34:12', '5ANJ2w'),
+(1011, 'wWk41lge0t61YKD', '2025-12-28 11:48:20', '2025-12-28 12:02:20', '2025-12-28 11:48:20', 'pdHHnQ'),
+(1012, 'wWk41lge0t61YKD', '2025-12-28 12:02:26', '2025-12-28 12:22:55', '2025-12-28 12:02:26', 'sg97Hc'),
+(1013, 'wWk41lge0t61YKD', '2025-12-28 12:23:03', '2025-12-28 12:25:42', '2025-12-28 12:23:03', '4bWZ9E'),
+(1014, 'wWk41lge0t61YKD', '2025-12-28 12:26:10', '2025-12-28 12:43:56', '2025-12-28 12:26:10', 'odetbH'),
+(1015, 'admin', '2025-12-28 12:44:04', '2025-12-28 12:44:12', '2025-12-28 12:44:04', '9G5N6L'),
+(1016, 'admin', '2025-12-28 12:44:18', '2025-12-28 12:49:13', '2025-12-28 12:44:18', 'pZkH6L'),
+(1017, 'wWk41lge0t61YKD', '2025-12-28 12:49:19', '2025-12-28 13:16:31', '2025-12-28 12:49:19', 'Ohs7AF'),
+(1018, 'wWk41lge0t61YKD', '2025-12-28 13:16:37', NULL, NULL, '0fRmMS');
 
 -- --------------------------------------------------------
 
@@ -1904,8 +1932,8 @@ INSERT INTO `type_master` (`id`, `name`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `firstName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
-  `lastName` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `firstName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `lastName` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `dob` date DEFAULT NULL,
   `gender` int(11) NOT NULL DEFAULT 0,
   `username` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
@@ -1931,7 +1959,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstName`, `lastName`, `dob`, `gender`, `username`, `password`, `email`, `mobileNumber`, `loginDateTime`, `logoutDateTime`, `isLoggedIn`, `visit`, `avatarID`, `approved`, `approvedBy`, `passChange`, `passChangeDate`, `type`, `createdDate`, `createdBy`) VALUES
-(1, 'Deepak', 'Ravikumar', NULL, 1, 'wWk41lge0t61YKD', 'f92f438ddba5f5c9b33443dac81e3c8e8260365c820910e3e4fdd7f2e4e2f9091f32cb63fcff8a742e8c33c52f132c1d8de6c90f4ce5db36a86db0aea2ad1082', 'deepak.ravikumar@learnlike.co.in', 9894239802, '2025-07-07 12:20:59', '2025-06-12 19:42:38', 1, 300, 1, 0, NULL, 0, NULL, 0, '2023-05-29 16:50:46', '100000'),
+(1, 'Deepak', 'Ravikumar', NULL, 1, 'wWk41lge0t61YKD', 'f92f438ddba5f5c9b33443dac81e3c8e8260365c820910e3e4fdd7f2e4e2f9091f32cb63fcff8a742e8c33c52f132c1d8de6c90f4ce5db36a86db0aea2ad1082', 'deepak.ravikumar@learnlike.co.in', 9894239802, '2025-12-28 13:16:37', '2025-12-28 13:16:31', 1, 321, 1, 0, NULL, 0, NULL, 0, '2023-05-29 16:50:46', '100000'),
 (5, 'Srihari', 'Ravikumar', NULL, 1, 'ZlbiG8AeIxIQJWx', 'da2ccf64ce6d22845ef0b4670d630e3c0df5403ea7a41f2e3fc66f323d130a1e7b9a456f582d72ceb369fe70476f1e163b6ec928b91785c3a5e83d1cf425915d', 'srihari.ravikumar@learnlike.co.in', 9629044754, '2023-06-06 11:10:07', '2023-06-06 11:10:18', 0, 1, 1, 0, NULL, 0, NULL, 0, '2023-06-06 11:02:38', '100000'),
 (6, 'Thiyagarajan', 'Palanisamy', NULL, 1, '06pXOz0eJ2x0K7J', 'd66aa138b6c41f2414c56cb8384b175a8d6dc222dd49b0558155b381bea90f287b1c4eb89aa48119439abd5fb3420bf16dbc38d26f5106f06b1fd0d0aeffa254', 'thiyagarajan.palanisamy@learnlike.co.in', 8220776896, '2023-06-27 12:02:04', '2023-06-27 12:02:11', 0, 7, 1, 0, NULL, 0, NULL, 0, '2023-06-06 11:03:24', '100000'),
 (7, 'Abirami', 'S', NULL, 2, '0alOWe5oMl1KhHd', '1e3daaed92a18a2f23fa80022b4a01a91daf2a73cf0fddbe7b22ad94505c04f64612acaaef1edec73cb672a93b5114ad2fd8cb750a0034ab8a9d609e7bf420a5', 'abiramisaravanan392@gmail.com', 9489512568, '2023-07-12 20:19:05', '2023-06-06 12:45:22', 1, 11, 2, 0, NULL, 0, NULL, 0, '2023-06-06 12:42:40', '100000'),
@@ -2151,7 +2179,8 @@ INSERT INTO `users` (`id`, `firstName`, `lastName`, `dob`, `gender`, `username`,
 (225, 'Arshi', 'Khan', NULL, 2, 'JKPzWLqYNXtCovr', 'ea55461cdf6d412c23c2b36ec4f49b6084146235d928a6a4e058f97011358bebec6cade42fc7b2f1a7518667016bf1b5cf60f6bf17570c271393eabb900ac17c', 'arshi@unisonconsulting.com.sg', 7985731115, '2025-05-26 12:24:00', '2025-05-26 12:24:00', 0, 0, 2, 0, '1', 0, '2025-05-26 12:24:00', 5, '2025-05-26 12:24:00', '100000'),
 (226, 'Praveen', 'Ramasamy', NULL, 1, 'ZtqKxVbWnLdEjuP', 'd66037c3edf14a79489d813f1513b080ea0b75ee002ee4eab466af574ceebe232cf264f5f7cbff736da7ee32556fb562051d7414d2eead42ec81c5a58186eb78', 'praveen.r@unisonconsulting.com.sg', 0, '2025-06-03 14:39:33', '2025-06-03 14:39:42', 0, 2, 1, 1, '100000', 0, '2025-05-30 11:09:05', 5, '2025-05-30 11:10:38', '100000'),
 (227, 'Brijesh', NULL, NULL, 1, 'WnGpZsQaEvMTxuc', 'd66037c3edf14a79489d813f1513b080ea0b75ee002ee4eab466af574ceebe232cf264f5f7cbff736da7ee32556fb562051d7414d2eead42ec81c5a58186eb78', 'mailbrijesh@yahoo.com', 0, '2025-06-03 14:40:58', '2025-06-03 14:47:56', 0, 1, 1, 1, '100000', 0, '2025-06-03 09:45:49', 5, '2025-06-03 09:50:33', '100000'),
-(228, 'Dhamodharan', 'V', NULL, 1, 'LdKeFrByTnXwOaq', 'd66037c3edf14a79489d813f1513b080ea0b75ee002ee4eab466af574ceebe232cf264f5f7cbff736da7ee32556fb562051d7414d2eead42ec81c5a58186eb78', 'dhamodaranv@gmail.com', 0, '2025-06-19 15:54:24', '2025-06-19 15:55:02', 0, 2, 1, 1, '100000', 0, '2025-06-03 09:45:49', 0, '2025-06-03 09:50:33', '100000');
+(228, 'Dhamodharan', 'V', NULL, 1, 'LdKeFrByTnXwOaq', 'd66037c3edf14a79489d813f1513b080ea0b75ee002ee4eab466af574ceebe232cf264f5f7cbff736da7ee32556fb562051d7414d2eead42ec81c5a58186eb78', 'dhamodaranv@gmail.com', 0, '2025-06-19 15:54:24', '2025-06-19 15:55:02', 0, 2, 1, 1, '100000', 0, '2025-06-03 09:45:49', 0, '2025-06-03 09:50:33', '100000'),
+(230, 'Admin', 'User', NULL, 0, 'admin', '7fcf4ba391c48784edde599889d6e3f1e47a27db36ecc050cc92f259bfac38afad2c68a1ae804d77075e8fb722503f3eca2b2c1006ee6f6c7b7628cb45fffd1d', 'admin@LL.com', 0, '2025-12-28 12:44:18', '2025-12-28 12:49:13', 0, 5, 0, 1, NULL, 0, NULL, 1, '2025-12-28 11:28:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -3922,6 +3951,37 @@ INSERT INTO `user_batch_mapping` (`id`, `username`, `batch_unique_id`, `course_i
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `user_personal_info`
+--
+
+CREATE TABLE `user_personal_info` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `city` varchar(100) DEFAULT NULL,
+  `state` varchar(100) DEFAULT NULL,
+  `country` varchar(100) DEFAULT NULL,
+  `postal_code` varchar(20) DEFAULT NULL,
+  `occupation` varchar(100) DEFAULT NULL,
+  `college_name` varchar(100) DEFAULT NULL,
+  `phone_verified` tinyint(4) NOT NULL DEFAULT 0,
+  `email_verified` tinyint(4) NOT NULL DEFAULT 0,
+  `profile_completed` tinyint(4) NOT NULL DEFAULT 0,
+  `updated_date` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_date` datetime DEFAULT current_timestamp(),
+  `type` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user_personal_info`
+--
+
+INSERT INTO `user_personal_info` (`id`, `user_id`, `address`, `city`, `state`, `country`, `postal_code`, `occupation`, `college_name`, `phone_verified`, `email_verified`, `profile_completed`, `updated_date`, `created_date`, `type`) VALUES
+(1, 230, '123 Main St', 'New York', 'NY', 'USA', NULL, 'Software Engineer', 'LL', 0, 0, 0, '2025-12-28 13:29:22', '2025-12-28 13:29:22', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `welcome_page_master`
 --
 
@@ -4111,6 +4171,13 @@ ALTER TABLE `user_batch_mapping`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_personal_info`
+--
+ALTER TABLE `user_personal_info`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `welcome_page_master`
 --
 ALTER TABLE `welcome_page_master`
@@ -4154,7 +4221,7 @@ ALTER TABLE `course_tool_quiz_master`
 -- AUTO_INCREMENT for table `currentusers`
 --
 ALTER TABLE `currentusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=993;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1019;
 
 --
 -- AUTO_INCREMENT for table `programmes_master`
@@ -4238,7 +4305,7 @@ ALTER TABLE `type_master`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
 
 --
 -- AUTO_INCREMENT for table `users_certificates`
@@ -4271,10 +4338,26 @@ ALTER TABLE `user_batch_mapping`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
+-- AUTO_INCREMENT for table `user_personal_info`
+--
+ALTER TABLE `user_personal_info`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `welcome_page_master`
 --
 ALTER TABLE `welcome_page_master`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `user_personal_info`
+--
+ALTER TABLE `user_personal_info`
+  ADD CONSTRAINT `user_personal_info_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

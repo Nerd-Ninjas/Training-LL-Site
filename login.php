@@ -4,6 +4,10 @@ require_once("includes/head_login.php");
 require_once("includes/classes/FormSanitizer.php");
 require_once("includes/classes/Constants.php");
 require_once("includes/classes/Account.php");
+
+// Content Security Policy headers - allows scripts, styles from self and Google Fonts
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self' https://www.google-analytics.com;");
+
 if($_SESSION["username"]){
 header("Location: main.php?ci=AIJM");
 }
@@ -19,12 +23,22 @@ $account = new Account($con);
 
         if($success) {
 			$username=$success['username'];
+			$userType=$success['type'];
 			$key= FormSanitizer::sanitizeFormSessionName();
 			$successConfirm = $account->loginConfirm($username,$password,$key);
 			$_SESSION["username"] = $username;
 			$_SESSION["keyval"] = $key;
+			$_SESSION["userType"] = $userType;
 			$_SESSION["last_login_timestamp"]=time();
-			header("Location: main.php?ci=AIJM");
+			
+			// Redirect based on user type
+			if($userType == 1) {
+				// Admin user
+				header("Location: admin/index.php");
+			} else {
+				// Regular user
+				header("Location: main.php?ci=AIJM");
+			}
         }
 		else{
 			$errorMsg="Invalid Username or Password";
@@ -69,14 +83,16 @@ $account = new Account($con);
                <span class="login100-form-title"> <img src="assets/images/brand/full-logo-light.png" class="header-brand-img" alt=""></span>
 			   
                 <div class="wrap-input100 validate-input" data-bs-validate="Valid email is required: ex@abc.xyz">
-                  <input class="input100" type="text" name="email" placeholder="Email">
+                  <label for="email" class="sr-only">Email Address</label>
+                  <input id="email" class="input100" type="email" name="email" placeholder="Email" autocomplete="email" required>
                   <span class="focus-input100"></span>
                   <span class="symbol-input100">
                     <i class="zmdi zmdi-email" aria-hidden="true"></i>
                   </span>
                 </div>
                 <div class="wrap-input100 validate-input" data-bs-validate="Password is required">
-                  <input class="input100" type="password" name="password" placeholder="Password">
+                  <label for="password" class="sr-only">Password</label>
+                  <input id="password" class="input100" type="password" name="password" placeholder="Password" autocomplete="current-password" required>
                   <span class="focus-input100"></span>
                   <span class="symbol-input100">
                     <i class="zmdi zmdi-lock" aria-hidden="true"></i>

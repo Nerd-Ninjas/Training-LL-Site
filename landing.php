@@ -2,6 +2,9 @@
 require_once("includes/config.php");
 require_once("includes/classes/Account.php");
 
+// Content Security Policy headers to prevent eval() execution and XSS attacks
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:;");
+
 $isLoggedIn = isset($_SESSION["username"]) && !empty($_SESSION["username"]);
 $userDetails = null;
 $filePath = 'assets/images/faces/6.jpg'; // default avatar
@@ -336,7 +339,7 @@ if($isLoggedIn) {
 												<img src="<?php echo htmlspecialchars($filePath); ?>" alt="profile-user" class="avatar profile-user brround cover-image">
 											</span>
 											<div class="text-center p-1 d-flex d-lg-none-max">
-												<h6 class="mb-0 ms-1" id="profile-heading"><?php echo htmlspecialchars($firstName); ?><i class="user-angle ms-1 fa fa-angle-down "></i></h6>
+												<h6 class="mb-0 ms-1 text-dark" id="profile-heading"><?php echo htmlspecialchars($firstName); ?><i class="user-angle ms-1 fa fa-angle-down "></i></h6>
 											</div>
 										</a>
 										<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" id="myDropdownMenu">
