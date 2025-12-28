@@ -37,7 +37,7 @@ $account = new Account($con);
 				header("Location: admin/index.php");
 			} else {
 				// Regular user
-				header("Location: main.php?ci=AIJM");
+				header("Location: landing.php");
 			}
         }
 		else{
