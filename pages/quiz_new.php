@@ -277,6 +277,13 @@
 require_once("../includes/config.php");
 require_once("../includes/classes/Account.php");
 require_once("../includes/classes/FormSanitizer.php");
+
+// Check if user is logged in
+if(!isset($_SESSION["username"]) || empty($_SESSION["username"])){
+	header("Location:../login.php");
+	exit;
+}
+
 $user_id = $_GET['session_id'];
 $quiz_id = $_GET['quiz_id'];
 $account = new Account($con);

@@ -1,6 +1,13 @@
  <?php
 	  require_once("../includes/config.php");
 	  require_once("../includes/classes/Account.php");
+	  
+	  // Check if user is logged in
+	  if(!isset($_SESSION["username"]) || empty($_SESSION["username"])){
+		  header("Location:../login.php");
+		  exit;
+	  }
+	  
 	  $account = new Account($con);
 	  $id=$_GET['id'];
 	  $pdfViewer = $account->getCertificate($id);

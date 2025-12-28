@@ -1,4 +1,36 @@
+<?php
+require_once("includes/config.php");
+require_once("includes/classes/Account.php");
 
+$isLoggedIn = isset($_SESSION["username"]) && !empty($_SESSION["username"]);
+$userDetails = null;
+$filePath = 'assets/images/faces/6.jpg'; // default avatar
+$firstName = 'Guest';
+$lastName = '';
+
+if($isLoggedIn) {
+	$account = new Account($con);
+	$username = $_SESSION["username"];
+	$userDetails = $account->getUserDetails($username);
+	
+	if($userDetails) {
+		$firstName = $userDetails['firstName'] ?? 'User';
+		$lastName = $userDetails['lastName'] ?? '';
+		
+		// Get avatar from avatar table using avatarID
+		$avatarID = $userDetails['avatarID'] ?? 0;
+		if($avatarID > 0) {
+			$query = $con->prepare("SELECT filePath FROM avatar WHERE id = :avatarID");
+			$query->bindValue(":avatarID", $avatarID);
+			$query->execute();
+			if($query->rowCount() == 1) {
+				$avatarRow = $query->fetch(PDO::FETCH_ASSOC);
+				$filePath = $avatarRow['filePath'] ?? 'assets/images/faces/6.jpg';
+			}
+		}
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -77,6 +109,19 @@
 		
 		.dropdown {
 			overflow: visible !important;
+		}
+		/* Ensure buttons are visible on all screen sizes */
+		.hor-header .header-right-icons.d-flex:not(.dropdown) {
+			display: flex !important;
+			visibility: visible !important;
+			position: relative !important;
+			z-index: 100 !important;
+			flex-wrap: nowrap !important;
+		}
+		.hor-header .header-right-icons.d-flex:not(.dropdown) .btn {
+			display: inline-block !important;
+			visibility: visible !important;
+			flex-shrink: 0 !important;
 		}
 		</style>
 	</head>
@@ -186,35 +231,42 @@
 							</a>
 							<!-- LOGO -->
 							
-							<!--<div class="d-flex order-lg-2 ms-auto header-right-icons">
+							<?php if ($isLoggedIn): ?>
+							<!-- Profile when logged in -->
+							<?php else: ?>
+							<!-- Sign up / Get Started buttons when logged out -->
+							<div class="d-flex order-lg-2 ms-auto header-right-icons">
 								<button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button"
 									data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
 									aria-controls="navbarSupportedContent-4" aria-expanded="false"
 									aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon fe fe-more-vertical"></span>
 								</button>
-								<div class="navbar navbar-collapse responsive-navbar p-0">
-									<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-										<div class="d-flex order-lg-2 m-4 m-lg-0 m-md-1">
-											<a href="#" target="_blank" class="btn btn-pill btn-outline-primary btn-w-md py-2 me-1">
+								<div class="navbar navbar-collapse responsive-navbar p-0 navbar-expand-md">
+									<div class="collapse navbar-collapse " id="navbarSupportedContent-4">
+										<div class="d-flex order-lg-2 m-4 m-lg-0 m-md-1 ">
+											<a href="login.php" class="btn btn-pill btn-outline-primary btn-w-md py-2 me-1">
 												Sign up
 											</a>
-											<a href="#" target="_blank" class="btn btn-pill btn-primary btn-w-md py-2">
+											<a href="register.php" class="btn btn-pill btn-primary btn-w-md py-2">
 												Get Started
 											</a>
 										</div>
 									</div>
+									
 								</div>
-							</div>-->
+							</div>
+							<?php endif; ?>
 							<!-- NOTIFICATIONS -->
+											<?php if ($isLoggedIn): ?>
 											<div class="dropdown d-md-flex profile-1 d-flex order-lg-2 ms-auto header-right-icons">
 												<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex animate">
 													<span>
-														<img src="assets/images/faces/6.jpg" alt="profile-user"
+														<img src="<?php echo htmlspecialchars($filePath); ?>" alt="profile-user"
 															class="avatar  profile-user brround cover-image">
 													</span>
 													<div class="text-center p-1 d-flex d-lg-none-max">
-														<h6 class="mb-0 ms-1" id="profile-heading">Elena<i class="user-angle ms-1 fa fa-angle-down "></i></h6>
+														<h6 class="mb-0 ms-1" id="profile-heading"><?php echo htmlspecialchars($firstName); ?><i class="user-angle ms-1 fa fa-angle-down "></i></h6>
 													</div>
 												</a>
 												<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -235,13 +287,16 @@
 														<svg xmlns="http://www.w3.org/2000/svg" class="w-inner-icn" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M2.5,9c0.0001831,0,0.0003662,0,0.0006104,0C2.7765503,8.9998169,3.0001831,8.776001,3,8.5V3h5.5C8.776123,3,9,2.776123,9,2.5S8.776123,2,8.5,2h-6C2.4998169,2,2.4996338,2,2.4993896,2C2.2234497,2.0001831,1.9998169,2.223999,2,2.5v6c0,0.0001831,0,0.0003662,0,0.0005493C2.0001831,8.7765503,2.223999,9.0001831,2.5,9z M8.5,21H3v-5.5C3,15.223877,2.776123,15,2.5,15S2,15.223877,2,15.5v6c0,0.0001831,0,0.0003662,0,0.0005493C2.0001831,21.7765503,2.223999,22.0001831,2.5,22h6C8.776123,22,9,21.776123,9,21.5S8.776123,21,8.5,21z M21.5,2h-6C15.223877,2,15,2.223877,15,2.5S15.223877,3,15.5,3H21v5.5c0,0.0001831,0,0.0003662,0,0.0005493C21.0001831,8.7765503,21.223999,9.0001831,21.5,9c0.0001831,0,0.0003662,0,0.0006104,0C21.7765503,8.9998169,22.0001831,8.776001,22,8.5v-6c0-0.0001831,0-0.0003662,0-0.0006104C21.9998169,2.2234497,21.776001,1.9998169,21.5,2z M17,16v-4c-0.0014038-1.1040039-0.8959961-1.9985962-2-2V9c0-1.6568604-1.3431396-3-3-3S9,7.3431396,9,9v1c-1.1040039,0.0014038-1.9985962,0.8959961-2,2v4c0.0014038,1.1040039,0.8959961,1.9985962,2,2h6C16.1040039,17.9985962,16.9985962,17.1040039,17,16z M10,9c0-1.1045532,0.8954468-2,2-2s2,0.8954468,2,2v1h-4V9z M8,16v-4c0.0003662-0.552124,0.447876-0.9996338,1-1h0.5h5h0.0006104H15c0.552124,0.0003662,0.9996338,0.447876,1,1v4c-0.0003662,0.552124-0.447876,0.9996338-1,1H9C8.447876,16.9996338,8.0003662,16.552124,8,16z M21.5,15c-0.276123,0-0.5,0.223877-0.5,0.5V21h-5.5c-0.276123,0-0.5,0.223877-0.5,0.5s0.223877,0.5,0.5,0.5h6c0.0001831,0,0.0003662,0,0.0006104,0C21.7765503,21.9998169,22.0001831,21.776001,22,21.5v-6C22,15.223877,21.776123,15,21.5,15z"/></svg>
 														Lock Screen
 													</a>
-													<a class="dropdown-item" href="login.php">
+													<a class="dropdown-item" href="logout.php">
 														<svg xmlns="http://www.w3.org/2000/svg" class="w-inner-icn" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M10.6523438,16.140625c-0.09375,0.09375-0.1464233,0.2208862-0.1464233,0.3534546c0,0.276123,0.2238159,0.5,0.499939,0.500061c0.1326294,0.0001221,0.2598267-0.0525513,0.3534546-0.1464844l4.4941406-4.4941406c0.000061-0.000061,0.0001221-0.000061,0.0001831-0.0001221c0.1951294-0.1952515,0.1950684-0.5117188-0.0001831-0.7068481L11.359314,7.1524048c-0.1937256-0.1871338-0.5009155-0.1871338-0.6947021,0c-0.1986084,0.1918335-0.2041016,0.5083618-0.0122681,0.7069702L14.2930298,11.5H2.5C2.223877,11.5,2,11.723877,2,12s0.223877,0.5,0.5,0.5h11.7930298L10.6523438,16.140625z M16.4199829,3.0454102C11.4741821,0.5905762,5.4748535,2.6099243,3.0200195,7.5556641C2.8970337,7.8029175,2.9978027,8.1030884,3.2450562,8.2260742C3.4923706,8.3490601,3.7925415,8.248291,3.9155273,8.0010376c0.8737793-1.7612305,2.300354-3.1878052,4.0615845-4.0615845C12.428833,1.730835,17.828064,3.5492554,20.0366821,8.0010376c2.2085571,4.4517212,0.3901367,9.8509521-4.0615845,12.0595703c-4.4517212,2.2085571-9.8510132,0.3901367-12.0595703-4.0615845c-0.1229858-0.2473145-0.4231567-0.3480835-0.6704102-0.2250977c-0.2473145,0.1229858-0.3480835,0.4230957-0.2250977,0.6704102c1.6773682,3.4109497,5.1530762,5.5667114,8.9541016,5.5537109c3.7976685,0.0003662,7.2676392-2.1509399,8.9560547-5.5526733C23.3850098,11.4996338,21.3657227,5.5002441,16.4199829,3.0454102z"/></svg>
 														Log out
 													</a>
-												</div>
-											</div>
-											<!-- Profile -->
+													
+                                            </div>
+                                            </div>
+                                            <!-- Profile -->
+                                            <?php else: ?>
+                                            <?php endif; ?>
 						</div>
 					</div>
 				</div>					
@@ -283,21 +338,43 @@
 										</li>
 									</ul>
 								
-										<!--<a href="#" target="_blank" class="btn btn-pill btn-outline-primary btn-w-md py-2 me-1 my-auto  d-lg-none d-xl-block d-block">
-											Sign up
-										</a>
-										<a href="#" target="_blank" class="btn btn-pill btn-primary btn-w-md py-2 my-auto d-lg-none d-xl-block d-block">
-											Get Started
-										</a>-->
+										<?php if ($isLoggedIn): ?>
+							<!-- Profile when logged in -->
+							<?php else: ?>
+							<!-- Sign up / Get Started buttons when logged out -->
+							<div class="d-flex order-lg-2 ms-auto header-right-icons">
+								<button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button"
+									data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
+									aria-controls="navbarSupportedContent-4" aria-expanded="false"
+									aria-label="Toggle navigation">
+									<span class="navbar-toggler-icon fe fe-more-vertical"></span>
+								</button>
+								<div class="navbar navbar-collapse responsive-navbar p-0 navbar-expand-md">
+									<div class="collapse navbar-collapse " id="navbarSupportedContent-4">
+										<div class="d-flex order-lg-2 m-4 m-lg-0 m-md-1 ">
+											<a href="login.php" class="btn btn-pill btn-outline-primary btn-w-md py-2 me-1">
+												Sign up
+											</a>
+											<a href="register.php" class="btn btn-pill btn-primary btn-w-md py-2">
+												Get Started
+											</a>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<?php endif; ?>
+								</div>
 										<!-- NOTIFICATIONS -->
+											<?php if ($isLoggedIn): ?>
 											<div class="header-nav-right d-flex dropdown profile-1">
 												<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex animate">
 													<span>
-														<img src="assets/images/faces/6.jpg" alt="profile-user"
+														<img src="<?php echo htmlspecialchars($filePath); ?>" alt="profile-user"
 															class="avatar  profile-user brround cover-image">
 													</span>
 													<div class="text-center p-1 d-flex d-lg-none-max">
-														<h6 class="mb-0 ms-1" id="profile-heading">Elena<i class="user-angle ms-1 fa fa-angle-down "></i></h6>
+														<h6 class="mb-0 ms-1" id="profile-heading"><?php echo htmlspecialchars($firstName); ?><i class="user-angle ms-1 fa fa-angle-down "></i></h6>
 													</div>
 												</a>
 												<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow" id="myDropdownMenu">
@@ -318,14 +395,14 @@
 														<svg xmlns="http://www.w3.org/2000/svg" class="w-inner-icn" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M2.5,9c0.0001831,0,0.0003662,0,0.0006104,0C2.7765503,8.9998169,3.0001831,8.776001,3,8.5V3h5.5C8.776123,3,9,2.776123,9,2.5S8.776123,2,8.5,2h-6C2.4998169,2,2.4996338,2,2.4993896,2C2.2234497,2.0001831,1.9998169,2.223999,2,2.5v6c0,0.0001831,0,0.0003662,0,0.0005493C2.0001831,8.7765503,2.223999,9.0001831,2.5,9z M8.5,21H3v-5.5C3,15.223877,2.776123,15,2.5,15S2,15.223877,2,15.5v6c0,0.0001831,0,0.0003662,0,0.0005493C2.0001831,21.7765503,2.223999,22.0001831,2.5,22h6C8.776123,22,9,21.776123,9,21.5S8.776123,21,8.5,21z M21.5,2h-6C15.223877,2,15,2.223877,15,2.5S15.223877,3,15.5,3H21v5.5c0,0.0001831,0,0.0003662,0,0.0005493C21.0001831,8.7765503,21.223999,9.0001831,21.5,9c0.0001831,0,0.0003662,0,0.0006104,0C21.7765503,8.9998169,22.0001831,8.776001,22,8.5v-6c0-0.0001831,0-0.0003662,0-0.0006104C21.9998169,2.2234497,21.776001,1.9998169,21.5,2z M17,16v-4c-0.0014038-1.1040039-0.8959961-1.9985962-2-2V9c0-1.6568604-1.3431396-3-3-3S9,7.3431396,9,9v1c-1.1040039,0.0014038-1.9985962,0.8959961-2,2v4c0.0014038,1.1040039,0.8959961,1.9985962,2,2h6C16.1040039,17.9985962,16.9985962,17.1040039,17,16z M10,9c0-1.1045532,0.8954468-2,2-2s2,0.8954468,2,2v1h-4V9z M8,16v-4c0.0003662-0.552124,0.447876-0.9996338,1-1h0.5h5h0.0006104H15c0.552124,0.0003662,0.9996338,0.447876,1,1v4c-0.0003662,0.552124-0.447876,0.9996338-1,1H9C8.447876,16.9996338,8.0003662,16.552124,8,16z M21.5,15c-0.276123,0-0.5,0.223877-0.5,0.5V21h-5.5c-0.276123,0-0.5,0.223877-0.5,0.5s0.223877,0.5,0.5,0.5h6c0.0001831,0,0.0003662,0,0.0006104,0C21.7765503,21.9998169,22.0001831,21.776001,22,21.5v-6C22,15.223877,21.776123,15,21.5,15z"/></svg>
 														Lock Screen
 													</a>
-													<a class="dropdown-item" href="login.php">
+													<a class="dropdown-item" href="logout.php">
 														<svg xmlns="http://www.w3.org/2000/svg" class="w-inner-icn" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path d="M10.6523438,16.140625c-0.09375,0.09375-0.1464233,0.2208862-0.1464233,0.3534546c0,0.276123,0.2238159,0.5,0.499939,0.500061c0.1326294,0.0001221,0.2598267-0.0525513,0.3534546-0.1464844l4.4941406-4.4941406c0.000061-0.000061,0.0001221-0.000061,0.0001831-0.0001221c0.1951294-0.1952515,0.1950684-0.5117188-0.0001831-0.7068481L11.359314,7.1524048c-0.1937256-0.1871338-0.5009155-0.1871338-0.6947021,0c-0.1986084,0.1918335-0.2041016,0.5083618-0.0122681,0.7069702L14.2930298,11.5H2.5C2.223877,11.5,2,11.723877,2,12s0.223877,0.5,0.5,0.5h11.7930298L10.6523438,16.140625z M16.4199829,3.0454102C11.4741821,0.5905762,5.4748535,2.6099243,3.0200195,7.5556641C2.8970337,7.8029175,2.9978027,8.1030884,3.2450562,8.2260742C3.4923706,8.3490601,3.7925415,8.248291,3.9155273,8.0010376c0.8737793-1.7612305,2.300354-3.1878052,4.0615845-4.0615845C12.428833,1.730835,17.828064,3.5492554,20.0366821,8.0010376c2.2085571,4.4517212,0.3901367,9.8509521-4.0615845,12.0595703c-4.4517212,2.2085571-9.8510132,0.3901367-12.0595703-4.0615845c-0.1229858-0.2473145-0.4231567-0.3480835-0.6704102-0.2250977c-0.2473145,0.1229858-0.3480835,0.4230957-0.2250977,0.6704102c1.6773682,3.4109497,5.1530762,5.5667114,8.9541016,5.5537109c3.7976685,0.0003662,7.2676392-2.1509399,8.9560547-5.5526733C23.3850098,11.4996338,21.3657227,5.5002441,16.4199829,3.0454102z"/></svg>
 														Log out
 													</a>
 												</div>
 											</div>
 											<!-- Profile -->
-										
+											<?php endif; ?>
 								
 								</div>
 							</div>
