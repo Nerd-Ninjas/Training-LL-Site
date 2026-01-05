@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2025 at 09:02 AM
+-- Generation Time: Jan 05, 2026 at 09:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -110,6 +110,30 @@ INSERT INTO `courses_master` (`id`, `course_id`, `course_name`, `approved`, `app
 (2, 'CVBG', 'Cyber Security Beginner', 1, '100000', '2024-05-12 00:15:48', NULL, NULL),
 (3, 'AIJM', 'Artificial Intelligence for Journalism and Multimedia ', 1, '100000', '2025-02-10 17:03:08', NULL, NULL),
 (4, 'AIHD', 'AI for HR and Delivery Managers', 1, '100000', '2025-05-19 23:00:48', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `course_masters`
+--
+
+CREATE TABLE `course_masters` (
+  `id` int(11) NOT NULL,
+  `course_name` varchar(255) NOT NULL,
+  `course_code` varchar(50) NOT NULL,
+  `course_description` text DEFAULT NULL,
+  `created_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `course_masters`
+--
+
+INSERT INTO `course_masters` (`id`, `course_name`, `course_code`, `course_description`, `created_date`) VALUES
+(1, 'Excel Basics', 'EXCEL-001', 'Learn Excel fundamentals and functions', '2025-12-28 10:30:52'),
+(2, 'PowerPoint Essentials', 'PPT-001', 'Create professional presentations', '2025-12-28 10:30:52'),
+(3, 'Network Security', 'NS-001', 'Understand network security principles', '2025-12-28 10:30:52'),
+(4, 'AI Fundamentals', 'AI-001', 'Introduction to Artificial Intelligence', '2025-12-28 10:30:52');
 
 -- --------------------------------------------------------
 
@@ -1215,7 +1239,28 @@ INSERT INTO `currentusers` (`id`, `username`, `loginDate`, `logoutDate`, `lastAc
 (1015, 'admin', '2025-12-28 12:44:04', '2025-12-28 12:44:12', '2025-12-28 12:44:04', '9G5N6L'),
 (1016, 'admin', '2025-12-28 12:44:18', '2025-12-28 12:49:13', '2025-12-28 12:44:18', 'pZkH6L'),
 (1017, 'wWk41lge0t61YKD', '2025-12-28 12:49:19', '2025-12-28 13:16:31', '2025-12-28 12:49:19', 'Ohs7AF'),
-(1018, 'wWk41lge0t61YKD', '2025-12-28 13:16:37', NULL, NULL, '0fRmMS');
+(1018, 'wWk41lge0t61YKD', '2025-12-28 13:16:37', '2025-12-28 13:52:56', '2025-12-28 13:16:37', '0fRmMS'),
+(1019, 'admin', '2025-12-28 13:53:08', '2025-12-28 16:45:06', '2025-12-28 13:53:08', '3KR8xB'),
+(1020, 'admin', '2025-12-28 14:23:37', NULL, NULL, '7Lsis0'),
+(1021, 'admin', '2025-12-28 16:45:17', '2025-12-28 16:45:22', '2025-12-28 16:45:17', 'aoduLL'),
+(1022, 'wWk41lge0t61YKD', '2025-12-28 16:48:54', '2025-12-28 16:50:24', '2025-12-28 16:48:54', 'qFannQ'),
+(1023, 'wWk41lge0t61YKD', '2025-12-28 16:50:29', '2025-12-28 16:52:53', '2025-12-28 16:50:29', 'IlGynL'),
+(1024, 'wWk41lge0t61YKD', '2025-12-28 16:53:01', '2025-12-28 16:54:23', '2025-12-28 16:53:01', 'qZEuLI'),
+(1025, 'wWk41lge0t61YKD', '2025-12-28 16:54:26', '2025-12-28 16:55:38', '2025-12-28 16:54:26', 'A6Qzqq'),
+(1026, 'admin', '2025-12-28 16:55:44', '2025-12-28 16:56:07', '2025-12-28 16:55:44', 'ej9qWX'),
+(1027, 'admin', '2026-01-05 10:28:38', '2026-01-05 10:29:19', '2026-01-05 10:28:38', 'y5Ue6h'),
+(1028, 'wWk41lge0t61YKD', '2026-01-05 10:29:25', '2026-01-05 10:32:24', '2026-01-05 10:29:25', 'WiYKJG'),
+(1029, 'admin', '2026-01-05 10:32:42', '2026-01-05 10:38:57', '2026-01-05 10:32:42', 'S7mqIQ'),
+(1030, 'admin', '2026-01-05 10:43:50', '2026-01-05 11:24:40', '2026-01-05 10:43:50', 'qFG5Az'),
+(1031, 'admin', '2026-01-05 11:24:44', '2026-01-05 11:25:20', '2026-01-05 11:24:44', 'y6Gl8t'),
+(1032, 'admin', '2026-01-05 11:25:23', '2026-01-05 13:46:27', '2026-01-05 11:25:23', 'Zf5MPm'),
+(1033, 'wWk41lge0t61YKD', '2026-01-05 11:26:46', '2026-01-05 12:10:50', '2026-01-05 11:26:46', 'eMq04p'),
+(1034, 'wWk41lge0t61YKD', '2026-01-05 12:10:54', '2026-01-05 12:14:57', '2026-01-05 12:10:54', 'poy0n7'),
+(1035, 'wWk41lge0t61YKD', '2026-01-05 12:15:01', '2026-01-05 12:54:13', '2026-01-05 12:15:01', 'dhtkQy'),
+(1036, 'wWk41lge0t61YKD', '2026-01-05 12:54:43', '2026-01-05 12:54:48', '2026-01-05 12:54:43', '2of3Dy'),
+(1037, 'wWk41lge0t61YKD', '2026-01-05 12:54:58', NULL, NULL, '0nuYnZ'),
+(1038, 'wWk41lge0t61YKD', '2026-01-05 13:46:32', '2026-01-05 13:46:40', '2026-01-05 13:46:32', 'z0ZQUJ'),
+(1039, 'admin', '2026-01-05 13:46:44', '2026-01-05 13:47:20', '2026-01-05 13:46:44', 'WWi1dF');
 
 -- --------------------------------------------------------
 
@@ -1245,6 +1290,27 @@ INSERT INTO `programmes_master` (`id`, `programme_id`, `programme_name`, `approv
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `programme_assign`
+--
+
+CREATE TABLE `programme_assign` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `programme_id` int(11) NOT NULL,
+  `assigned_by` int(11) DEFAULT NULL,
+  `assigned_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `programme_assign`
+--
+
+INSERT INTO `programme_assign` (`id`, `user_id`, `programme_id`, `assigned_by`, `assigned_date`) VALUES
+(3, 250, 4, 230, '2026-01-05 06:33:36');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `programme_courses_mapping`
 --
 
@@ -1265,7 +1331,30 @@ INSERT INTO `programme_courses_mapping` (`id`, `programme_id`, `course_id`, `app
 (1, 'MSTE', 'MSTE', 1, '100000', '2024-05-11 17:52:44'),
 (2, 'CVBG', 'CVBG', 1, '100000', '2024-05-11 20:46:37'),
 (3, 'AIJM', 'AIJM', 1, '100000', '2025-02-10 17:06:41'),
-(4, 'AIHD', 'AIHD', 1, '100000', '2025-05-19 12:53:42');
+(15, 'AIHD', 'AIHD', 1, 'admin', '2025-12-28 16:25:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `programme_master`
+--
+
+CREATE TABLE `programme_master` (
+  `id` int(11) NOT NULL,
+  `programme_name` varchar(255) NOT NULL,
+  `programme_code` varchar(50) NOT NULL,
+  `description` text DEFAULT NULL,
+  `created_date` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `programme_master`
+--
+
+INSERT INTO `programme_master` (`id`, `programme_name`, `programme_code`, `description`, `created_date`) VALUES
+(1, 'MSTE', 'Microsoft Tools for Education', 'Training programme for educators', '2025-12-28 10:30:52'),
+(2, 'CVBG', 'Cyber Security Beginner', 'Beginner level cybersecurity course', '2025-12-28 10:30:52'),
+(3, 'AIJM', 'Artificial Intelligence for Journalism', 'AI applications in journalism and multimedia', '2025-12-28 10:30:52');
 
 -- --------------------------------------------------------
 
@@ -1959,7 +2048,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `firstName`, `lastName`, `dob`, `gender`, `username`, `password`, `email`, `mobileNumber`, `loginDateTime`, `logoutDateTime`, `isLoggedIn`, `visit`, `avatarID`, `approved`, `approvedBy`, `passChange`, `passChangeDate`, `type`, `createdDate`, `createdBy`) VALUES
-(1, 'Deepak', 'Ravikumar', NULL, 1, 'wWk41lge0t61YKD', 'f92f438ddba5f5c9b33443dac81e3c8e8260365c820910e3e4fdd7f2e4e2f9091f32cb63fcff8a742e8c33c52f132c1d8de6c90f4ce5db36a86db0aea2ad1082', 'deepak.ravikumar@learnlike.co.in', 9894239802, '2025-12-28 13:16:37', '2025-12-28 13:16:31', 1, 321, 1, 0, NULL, 0, NULL, 0, '2023-05-29 16:50:46', '100000'),
+(1, 'Deepak', 'Ravikumar', NULL, 1, 'wWk41lge0t61YKD', 'f92f438ddba5f5c9b33443dac81e3c8e8260365c820910e3e4fdd7f2e4e2f9091f32cb63fcff8a742e8c33c52f132c1d8de6c90f4ce5db36a86db0aea2ad1082', 'deepak.ravikumar@learnlike.co.in', 9894239802, '2026-01-05 13:46:32', '2026-01-05 13:46:40', 0, 332, 1, 0, NULL, 0, NULL, 0, '2023-05-29 16:50:46', '100000'),
 (5, 'Srihari', 'Ravikumar', NULL, 1, 'ZlbiG8AeIxIQJWx', 'da2ccf64ce6d22845ef0b4670d630e3c0df5403ea7a41f2e3fc66f323d130a1e7b9a456f582d72ceb369fe70476f1e163b6ec928b91785c3a5e83d1cf425915d', 'srihari.ravikumar@learnlike.co.in', 9629044754, '2023-06-06 11:10:07', '2023-06-06 11:10:18', 0, 1, 1, 0, NULL, 0, NULL, 0, '2023-06-06 11:02:38', '100000'),
 (6, 'Thiyagarajan', 'Palanisamy', NULL, 1, '06pXOz0eJ2x0K7J', 'd66aa138b6c41f2414c56cb8384b175a8d6dc222dd49b0558155b381bea90f287b1c4eb89aa48119439abd5fb3420bf16dbc38d26f5106f06b1fd0d0aeffa254', 'thiyagarajan.palanisamy@learnlike.co.in', 8220776896, '2023-06-27 12:02:04', '2023-06-27 12:02:11', 0, 7, 1, 0, NULL, 0, NULL, 0, '2023-06-06 11:03:24', '100000'),
 (7, 'Abirami', 'S', NULL, 2, '0alOWe5oMl1KhHd', '1e3daaed92a18a2f23fa80022b4a01a91daf2a73cf0fddbe7b22ad94505c04f64612acaaef1edec73cb672a93b5114ad2fd8cb750a0034ab8a9d609e7bf420a5', 'abiramisaravanan392@gmail.com', 9489512568, '2023-07-12 20:19:05', '2023-06-06 12:45:22', 1, 11, 2, 0, NULL, 0, NULL, 0, '2023-06-06 12:42:40', '100000'),
@@ -2180,7 +2269,11 @@ INSERT INTO `users` (`id`, `firstName`, `lastName`, `dob`, `gender`, `username`,
 (226, 'Praveen', 'Ramasamy', NULL, 1, 'ZtqKxVbWnLdEjuP', 'd66037c3edf14a79489d813f1513b080ea0b75ee002ee4eab466af574ceebe232cf264f5f7cbff736da7ee32556fb562051d7414d2eead42ec81c5a58186eb78', 'praveen.r@unisonconsulting.com.sg', 0, '2025-06-03 14:39:33', '2025-06-03 14:39:42', 0, 2, 1, 1, '100000', 0, '2025-05-30 11:09:05', 5, '2025-05-30 11:10:38', '100000'),
 (227, 'Brijesh', NULL, NULL, 1, 'WnGpZsQaEvMTxuc', 'd66037c3edf14a79489d813f1513b080ea0b75ee002ee4eab466af574ceebe232cf264f5f7cbff736da7ee32556fb562051d7414d2eead42ec81c5a58186eb78', 'mailbrijesh@yahoo.com', 0, '2025-06-03 14:40:58', '2025-06-03 14:47:56', 0, 1, 1, 1, '100000', 0, '2025-06-03 09:45:49', 5, '2025-06-03 09:50:33', '100000'),
 (228, 'Dhamodharan', 'V', NULL, 1, 'LdKeFrByTnXwOaq', 'd66037c3edf14a79489d813f1513b080ea0b75ee002ee4eab466af574ceebe232cf264f5f7cbff736da7ee32556fb562051d7414d2eead42ec81c5a58186eb78', 'dhamodaranv@gmail.com', 0, '2025-06-19 15:54:24', '2025-06-19 15:55:02', 0, 2, 1, 1, '100000', 0, '2025-06-03 09:45:49', 0, '2025-06-03 09:50:33', '100000'),
-(230, 'Admin', 'User', NULL, 0, 'admin', '7fcf4ba391c48784edde599889d6e3f1e47a27db36ecc050cc92f259bfac38afad2c68a1ae804d77075e8fb722503f3eca2b2c1006ee6f6c7b7628cb45fffd1d', 'admin@LL.com', 0, '2025-12-28 12:44:18', '2025-12-28 12:49:13', 0, 5, 0, 1, NULL, 0, NULL, 1, '2025-12-28 11:28:05', NULL);
+(230, 'Admin', 'User', NULL, 0, 'admin', '7fcf4ba391c48784edde599889d6e3f1e47a27db36ecc050cc92f259bfac38afad2c68a1ae804d77075e8fb722503f3eca2b2c1006ee6f6c7b7628cb45fffd1d', 'admin@LL.com', 0, '2026-01-05 13:46:44', '2026-01-05 13:47:20', 0, 15, 0, 1, NULL, 0, NULL, 1, '2025-12-28 11:28:05', NULL),
+(247, 'John', 'Doe', NULL, 0, 'john123', 'bed4efa1d4fdbd954bd3705d6a2a78270ec9a52ecfbfb010c61862af5c76af1761ffeb1aef6aca1bf5d02b3781aa854fabd2b69c790de74e17ecfec3cb6ac4bf', 'john@example.com', 0, '2025-12-28 15:02:01', NULL, 0, 0, 0, 0, NULL, 0, NULL, 0, '2025-12-28 15:02:01', 'admin'),
+(248, 'Jane', 'Smith', NULL, 0, 'jane456', '31b7e1a5cd6d9d6782a8a5a3d26c26ca6760cd79c34baba727ff790eb6d52c2b2ee4362c62f743f56cab1b6ee180a8dad6d15f532cb0c3d5e1e3160f8d85dace', 'jane@example.com', 0, '2025-12-28 15:02:01', NULL, 0, 0, 0, 0, NULL, 0, NULL, 0, '2025-12-28 15:02:01', 'admin'),
+(249, 'Mike', 'Johnson', NULL, 0, 'mike789', '07dfdbc7386cae64ddd9e64acd47da9fc9d53ccb1494b5e4d71b7f35b534d735b08df53a976d9c4609e3c777c7cd210af41d3e2adb5b2af049cbe2f584130bd7', 'mike@example.com', 0, '2025-12-28 15:02:01', NULL, 0, 0, 0, 0, NULL, 0, NULL, 0, '2025-12-28 15:02:01', 'admin'),
+(250, 'Srihari Prasath', 'A', '2025-12-28', 1, 'testing', '3c9909afec25354d551dae21590bb26e38d53f2173b8d3dc3eee4c047e7ab1c1eb8b85103e3be7ba613b31bb5c9c36214dc9f14a42fd7a2fdb84856bca5c44c2', 'hari54stark@gmail.com', 8838159937, '2025-12-28 15:20:41', NULL, 0, 0, 0, 1, 'admin', 0, NULL, 0, '2025-12-28 15:20:41', 'admin');
 
 -- --------------------------------------------------------
 
@@ -3977,7 +4070,9 @@ CREATE TABLE `user_personal_info` (
 --
 
 INSERT INTO `user_personal_info` (`id`, `user_id`, `address`, `city`, `state`, `country`, `postal_code`, `occupation`, `college_name`, `phone_verified`, `email_verified`, `profile_completed`, `updated_date`, `created_date`, `type`) VALUES
-(1, 230, '123 Main St', 'New York', 'NY', 'USA', NULL, 'Software Engineer', 'LL', 0, 0, 0, '2025-12-28 13:29:22', '2025-12-28 13:29:22', 0);
+(1, 230, '123 Main St', 'New York', 'NY', 'USA', NULL, 'Software Engineer', 'LL', 0, 0, 0, '2025-12-28 13:29:22', '2025-12-28 13:29:22', 0),
+(2, 250, '247/b3, Samadharmapuram , Theni', 'Theni', 'Tamil Nadu', 'India', '625531', 'Assistant Professor', 'test', 0, 1, 1, '2026-01-05 11:57:34', '2026-01-05 11:43:18', 0),
+(3, 1, '', '', '', '', '', '', '', 0, 0, 0, '2026-01-05 12:10:43', '2026-01-05 12:10:43', 0);
 
 -- --------------------------------------------------------
 
@@ -4032,6 +4127,13 @@ ALTER TABLE `courses_master`
   ADD UNIQUE KEY `course_id` (`course_id`);
 
 --
+-- Indexes for table `course_masters`
+--
+ALTER TABLE `course_masters`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `course_code` (`course_code`);
+
+--
 -- Indexes for table `course_quiz_master`
 --
 ALTER TABLE `course_quiz_master`
@@ -4058,10 +4160,26 @@ ALTER TABLE `programmes_master`
   ADD UNIQUE KEY `course_id` (`programme_id`);
 
 --
+-- Indexes for table `programme_assign`
+--
+ALTER TABLE `programme_assign`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `unique_user_programme` (`user_id`,`programme_id`),
+  ADD KEY `programme_id` (`programme_id`),
+  ADD KEY `assigned_by` (`assigned_by`);
+
+--
 -- Indexes for table `programme_courses_mapping`
 --
 ALTER TABLE `programme_courses_mapping`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `programme_master`
+--
+ALTER TABLE `programme_master`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `programme_code` (`programme_code`);
 
 --
 -- Indexes for table `questions`
@@ -4203,6 +4321,12 @@ ALTER TABLE `batch_master`
 -- AUTO_INCREMENT for table `courses_master`
 --
 ALTER TABLE `courses_master`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `course_masters`
+--
+ALTER TABLE `course_masters`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
@@ -4221,19 +4345,31 @@ ALTER TABLE `course_tool_quiz_master`
 -- AUTO_INCREMENT for table `currentusers`
 --
 ALTER TABLE `currentusers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1019;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1040;
 
 --
 -- AUTO_INCREMENT for table `programmes_master`
 --
 ALTER TABLE `programmes_master`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `programme_assign`
+--
+ALTER TABLE `programme_assign`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `programme_courses_mapping`
 --
 ALTER TABLE `programme_courses_mapping`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `programme_master`
+--
+ALTER TABLE `programme_master`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `questions`
@@ -4305,7 +4441,7 @@ ALTER TABLE `type_master`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=231;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=251;
 
 --
 -- AUTO_INCREMENT for table `users_certificates`
@@ -4341,7 +4477,7 @@ ALTER TABLE `user_batch_mapping`
 -- AUTO_INCREMENT for table `user_personal_info`
 --
 ALTER TABLE `user_personal_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `welcome_page_master`
@@ -4352,6 +4488,14 @@ ALTER TABLE `welcome_page_master`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `programme_assign`
+--
+ALTER TABLE `programme_assign`
+  ADD CONSTRAINT `programme_assign_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `programme_assign_ibfk_2` FOREIGN KEY (`programme_id`) REFERENCES `programmes_master` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `programme_assign_ibfk_3` FOREIGN KEY (`assigned_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `user_personal_info`

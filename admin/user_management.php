@@ -95,8 +95,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'edit_user') {
     $gender = isset($_POST['gender']) ? intval($_POST['gender']) : 0;
     $dob = isset($_POST['dob']) ? FormSanitizer::sanitizeFormString($_POST['dob']) : NULL;
     $approved = isset($_POST['approved']) ? intval($_POST['approved']) : 0;
-    
-    // Validate required fields
+
     if(empty($firstName) || empty($lastName) || empty($email)) {
         $edit_user_error = "All required fields must be filled";
     } else if($user_id <= 0) {
@@ -114,35 +113,70 @@ if(isset($_POST['action']) && $_POST['action'] == 'edit_user') {
                 if(!empty($password)) {
                     // Hash new password
                     $hashed_password = hash('sha512', $password);
-                    $update_user = $con->prepare("UPDATE users SET firstName = ?, lastName = ?, email = ?, mobileNumber = ?, gender = ?, dob = ?, approved = ?, password = ? WHERE id = ?");
                     
-                    $dob_value = !empty($dob) ? $dob : NULL;
-                    $mobileNumber_value = !empty($mobileNumber) ? intval($mobileNumber) : 0;
-                    
-                    if($update_user->execute([$firstName, $lastName, $email, $mobileNumber_value, $gender, $dob_value, $approved, $hashed_password, $user_id])) {
-                        $edit_user_success = "User updated successfully with new password!";
-                        // Refresh user list
-                        $query = $con->prepare("SELECT * FROM users ORDER BY createdDate DESC LIMIT 1000");
-                        $query->execute();
-                        $users = $query->fetchAll(PDO::FETCH_ASSOC);
+                    if($approved == 1) {
+                        // Approved is selected, update approvedBy
+                        $update_user = $con->prepare("UPDATE users SET firstName = ?, lastName = ?, email = ?, mobileNumber = ?, gender = ?, dob = ?, approved = ?, approvedBy = ?, password = ? WHERE id = ?");
+                        $dob_value = !empty($dob) ? $dob : NULL;
+                        $mobileNumber_value = !empty($mobileNumber) ? intval($mobileNumber) : 0;
+                        
+                        if($update_user->execute([$firstName, $lastName, $email, $mobileNumber_value, $gender, $dob_value, $approved, $_SESSION['username'], $hashed_password, $user_id])) {
+                            $edit_user_success = "User updated successfully with new password! Profile approved by " . $_SESSION['username'];
+                            // Refresh user list
+                            $query = $con->prepare("SELECT * FROM users ORDER BY createdDate DESC LIMIT 1000");
+                            $query->execute();
+                            $users = $query->fetchAll(PDO::FETCH_ASSOC);
+                        } else {
+                            $edit_user_error = "Failed to update user: " . implode(", ", $update_user->errorInfo());
+                        }
                     } else {
-                        $edit_user_error = "Failed to update user: " . implode(", ", $update_user->errorInfo());
+                        // Pending is selected, don't update approvedBy
+                        $update_user = $con->prepare("UPDATE users SET firstName = ?, lastName = ?, email = ?, mobileNumber = ?, gender = ?, dob = ?, approved = ?, password = ? WHERE id = ?");
+                        $dob_value = !empty($dob) ? $dob : NULL;
+                        $mobileNumber_value = !empty($mobileNumber) ? intval($mobileNumber) : 0;
+                        
+                        if($update_user->execute([$firstName, $lastName, $email, $mobileNumber_value, $gender, $dob_value, $approved, $hashed_password, $user_id])) {
+                            $edit_user_success = "User updated successfully with new password!";
+                            // Refresh user list
+                            $query = $con->prepare("SELECT * FROM users ORDER BY createdDate DESC LIMIT 1000");
+                            $query->execute();
+                            $users = $query->fetchAll(PDO::FETCH_ASSOC);
+                        } else {
+                            $edit_user_error = "Failed to update user: " . implode(", ", $update_user->errorInfo());
+                        }
                     }
                 } else {
                     // Update without changing password
-                    $update_user = $con->prepare("UPDATE users SET firstName = ?, lastName = ?, email = ?, mobileNumber = ?, gender = ?, dob = ?, approved = ? WHERE id = ?");
-                    
-                    $dob_value = !empty($dob) ? $dob : NULL;
-                    $mobileNumber_value = !empty($mobileNumber) ? intval($mobileNumber) : 0;
-                    
-                    if($update_user->execute([$firstName, $lastName, $email, $mobileNumber_value, $gender, $dob_value, $approved, $user_id])) {
-                        $edit_user_success = "User updated successfully!";
-                        // Refresh user list
-                        $query = $con->prepare("SELECT * FROM users ORDER BY createdDate DESC LIMIT 1000");
-                        $query->execute();
-                        $users = $query->fetchAll(PDO::FETCH_ASSOC);
+                    if($approved == 1) {
+                        // Approved is selected, update approvedBy
+                        $update_user = $con->prepare("UPDATE users SET firstName = ?, lastName = ?, email = ?, mobileNumber = ?, gender = ?, dob = ?, approved = ?, approvedBy = ? WHERE id = ?");
+                        $dob_value = !empty($dob) ? $dob : NULL;
+                        $mobileNumber_value = !empty($mobileNumber) ? intval($mobileNumber) : 0;
+                        
+                        if($update_user->execute([$firstName, $lastName, $email, $mobileNumber_value, $gender, $dob_value, $approved, $_SESSION['username'], $user_id])) {
+                            $edit_user_success = "User updated successfully! Profile approved by " . $_SESSION['username'];
+                            // Refresh user list
+                            $query = $con->prepare("SELECT * FROM users ORDER BY createdDate DESC LIMIT 1000");
+                            $query->execute();
+                            $users = $query->fetchAll(PDO::FETCH_ASSOC);
+                        } else {
+                            $edit_user_error = "Failed to update user";
+                        }
                     } else {
-                        $edit_user_error = "Failed to update user";
+                        // Pending is selected, don't update approvedBy
+                        $update_user = $con->prepare("UPDATE users SET firstName = ?, lastName = ?, email = ?, mobileNumber = ?, gender = ?, dob = ?, approved = ? WHERE id = ?");
+                        $dob_value = !empty($dob) ? $dob : NULL;
+                        $mobileNumber_value = !empty($mobileNumber) ? intval($mobileNumber) : 0;
+                        
+                        if($update_user->execute([$firstName, $lastName, $email, $mobileNumber_value, $gender, $dob_value, $approved, $user_id])) {
+                            $edit_user_success = "User updated successfully!";
+                            // Refresh user list
+                            $query = $con->prepare("SELECT * FROM users ORDER BY createdDate DESC LIMIT 1000");
+                            $query->execute();
+                            $users = $query->fetchAll(PDO::FETCH_ASSOC);
+                        } else {
+                            $edit_user_error = "Failed to update user";
+                        }
                     }
                 }
             } catch(Exception $e) {
@@ -707,6 +741,9 @@ if(isset($_POST['bulk_upload'])) {
 												<a class="dropdown-item" href="javascript: void(0);">
 													<svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.64l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.49.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.22-.07.5.12.64l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.64l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.49-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.5-.12-.64l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>Settings
 												</a>
+												<a class="dropdown-item" href="../landing.php">
+													<svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Landing Page
+												</a>
 												<a class="dropdown-item" href="../logout.php">
 													<svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>Logout
 												</a>
@@ -721,48 +758,10 @@ if(isset($_POST['bulk_upload'])) {
 			</div>
 			<!-- /app-Header -->
 
-			<!-- APP-SIDEBAR-->
-			<aside class="app-sidebar sticky">
-				<div class="app-sidebar__logo">
-					<a class="header-brand" href="index.php">
-						<img src="../assets/images/brand/CV_Logo.png" class="header-brand-img light-logo" alt="logo">
-						<img src="../assets/images/brand/CV_Logo.png" class="header-brand-img light-logo1" alt="logo">
-					</a>
-				</div>
-				<ul class="side-menu">
-					<li class="side-item side-item-category">
-						<span class="hide-menu">Main</span>
-					</li>
-					<li class="slide">
-						<a href="index.php" class="side-menu__item">
-							<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z"/></svg>
-							<span class="side-menu__label">Dashboard</span>
-						</a>
-					</li>
-					<li class="slide">
-						<a href="user_management.php" class="side-menu__item active">
-							<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-							<span class="side-menu__label">User Management</span>
-						</a>
-					</li>
-					<li class="slide">
-						<a href="approvals.php" class="side-menu__item">
-							<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-							<span class="side-menu__label">Approvals</span>
-						</a>
-					</li>
-					<li class="slide">
-						<a href="programme_management.php" class="side-menu__item">
-							<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 6h16V4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v2h8v-2h4c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 12V6h16v12H4z"/></svg>
-							<span class="side-menu__label">Programme Management</span>
-						</a>
-					</li>
-				</ul>
-			</aside>
-			<!-- /APP-SIDEBAR-->
+			<?php include_once("includes/sidebar.php"); ?>
 
 			<!-- APP-CONTENT -->
-			<div class="app-content main-content">
+			<div class="app-content main-content mt-0">
 				<div class="side-app">
 
 					<!-- PAGE-HEADER -->
@@ -944,13 +943,8 @@ if(isset($_POST['bulk_upload'])) {
 	<script src="../assets/js/custom.js"></script>
 	<!-- SWITCHER JS -->
 	<script src="../assets/switcher/js/switcher.js"></script>
-	<!-- SIDEBAR TOGGLE -->
-	<script>
-		$(document).on('click', '[data-bs-toggle="sidebar"]', function (event) {
-			event.preventDefault();
-			$('.app').toggleClass('sidenav-toggled');
-		});
-	</script>
+	<!-- SIDE-MENU JS-->
+	<script src="../assets/plugins/sidemenu/sidemenu.js"></script>
 
 	<!-- MODALS -->
 	<!-- ADD USER MODAL -->
@@ -1125,22 +1119,6 @@ if(isset($_POST['bulk_upload'])) {
 								</a>
 							</div>
 							<input type="file" class="form-control" name="csv_file" accept=".csv" required>
-							<small class="form-text text-muted d-block mt-2">
-								<strong>CSV Format Required:</strong><br>
-								First row should contain headers. Include columns in this order (all fields except dob are required):
-							</small>
-							<div class="csv-template">
-firstName,lastName,email,username,password,mobileNumber,gender,dob<br>
-John,Doe,john@example.com,john123,password123,9876543210,1,2000-05-15<br>
-Jane,Smith,jane@example.com,jane456,password456,9876543211,2,2001-08-20
-							</div>
-						</div>
-						<div class="alert alert-info mb-3">
-							<strong>Field Information:</strong><br>
-							• <strong>gender:</strong> 0=Select, 1=Male, 2=Female, 3=Other<br>
-							• <strong>dob:</strong> Date of birth in YYYY-MM-DD format (optional)<br>
-							• <strong>mobileNumber:</strong> Phone number (optional)<br>
-							• Duplicate usernames will be skipped. All passwords will be hashed automatically.
 						</div>
 					</div>
 					<div class="modal-footer">

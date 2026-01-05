@@ -631,11 +631,19 @@ if(isset($_GET['edit_course']) && !empty($_GET['edit_course'])) {
             <div class="app-header header sticky">
                 <div class="container-fluid main-container">
                     <div class="d-flex">
-                        <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript: void(0);"><span class="navbar-toggler-icon fe fe-menu"></span></a>
+                        <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript: void(0);"></a>
                         <!-- sidebar-toggle-->
-                        <a class="logo-horizontal" href="index.php">
-                            <img src="../assets/images/brand/CV_Logo.png" style="width:180px;height:50px;" class="header-brand-img desktop-logo" alt="logo">
+                        <a class="logo-horizontal " href="index.php">
+                            <img src="../assets/images/brand/CV_Logo.png"  style="width:180px;height:50px;" class="header-brand-img desktop-logo" alt="logo">
+                            <img src="../assets/images/brand/CV_Logo.png"  style="width:180px;height:50px;" class="header-brand-img light-logo1" alt="logo">
                         </a>
+                        <!-- LOGO -->
+                        <div class="main-header-center ms-3 d-none d-xl-block">
+                            <input class="form-control" placeholder="Search for results..." type="search">
+                            <button class="btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"><path  d="M21.2529297,17.6464844l-2.8994141-2.8994141c-0.0021973-0.0021973-0.0043945-0.0043945-0.0065918-0.0065918c-0.8752441-0.8721313-2.2249146-0.9760132-3.2143555-0.3148804l-0.8467407-0.8467407c1.0981445-1.2668457,1.7143555-2.887146,1.715332-4.5747681c0.0021973-3.8643799-3.1286621-6.9989014-6.993042-7.0011597S2.0092773,5.1315308,2.007019,8.9959106S5.1356201,15.994812,9,15.9970703c1.6889038,0.0029907,3.3114014-0.6120605,4.5789185-1.7111206l0.84729,0.84729c-0.6630859,0.9924316-0.5566406,2.3459473,0.3208618,3.2202759l2.8994141,2.8994141c0.4780884,0.4786987,1.1271973,0.7471313,1.8037109,0.7460938c0.6766357,0.0001831,1.3256226-0.2686768,1.803894-0.7472534C22.2493286,20.2558594,22.2488403,18.6417236,21.2529297,17.6464844z M9.0084229,14.9970703c-3.3120728,0.0023193-5.9989624-2.6807861-6.0012817-5.9928589S5.6879272,3.005249,9,3.0029297c1.5910034-0.0026855,3.1175537,0.628479,4.2421875,1.7539062c1.1252441,1.1238403,1.7579956,2.6486206,1.7590942,4.2389526C15.0036011,12.3078613,12.3204956,14.994751,9.0084229,14.9970703z M20.5458984,20.5413818c-0.604126,0.6066284-1.5856934,0.6087036-2.1923828,0.0045166l-2.8994141-2.8994141c-0.2913818-0.2910156-0.4549561-0.6861572-0.4544678-1.0979614C15.0006714,15.6928101,15.6951294,15,16.5507812,15.0009766c0.4109497-0.0005493,0.8051758,0.1624756,1.0957031,0.453125l2.8994141,2.8994141C21.1482544,18.9584351,21.1482544,19.9364624,20.5458984,20.5413818z"/></svg>
+                            </button>
+                        </div>
                         <div class="d-flex order-lg-2 ms-auto header-right-icons">
                             <button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button"
                                 data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
@@ -663,6 +671,9 @@ if(isset($_GET['edit_course']) && !empty($_GET['edit_course'])) {
                                                 <a class="dropdown-item" href="javascript: void(0);">
                                                     <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.64l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.49.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.22-.07.5.12.64l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.64l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.49-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.5-.12-.64l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>Settings
                                                 </a>
+                                                <a class="dropdown-item" href="../landing.php">
+                                                    <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Landing Page
+                                                </a>
                                                 <a class="dropdown-item" href="../logout.php">
                                                     <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>Logout
                                                 </a>
@@ -677,48 +688,10 @@ if(isset($_GET['edit_course']) && !empty($_GET['edit_course'])) {
             </div>
             <!-- /app-Header -->
 
-            <!-- APP-SIDEBAR -->
-            <aside class="app-sidebar sticky">
-                <div class="app-sidebar__logo">
-                    <a class="header-brand" href="index.php">
-                        <img src="../assets/images/brand/CV_Logo.png" class="header-brand-img light-logo" alt="logo">
-                        <img src="../assets/images/brand/CV_Logo.png" class="header-brand-img light-logo1" alt="logo">
-                    </a>
-                </div>
-                <ul class="side-menu">
-                    <li class="side-item side-item-category">
-                        <span class="hide-menu">Main</span>
-                    </li>
-                    <li class="slide">
-                        <a href="index.php" class="side-menu__item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3 13h2v8H3zm4-8h2v16H7zm4-2h2v18h-2zm4 4h2v14h-2zm4-2h2v16h-2z"/></svg>
-                            <span class="side-menu__label">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="slide">
-                        <a href="user_management.php" class="side-menu__item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                            <span class="side-menu__label">User Management</span>
-                        </a>
-                    </li>
-                    <li class="slide">
-                        <a href="approvals.php" class="side-menu__item">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg>
-                            <span class="side-menu__label">Approvals</span>
-                        </a>
-                    </li>
-                    <li class="slide">
-                        <a href="programme_management.php" class="side-menu__item active">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 6h16V4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v2h8v-2h4c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 12V6h16v12H4z"/></svg>
-                            <span class="side-menu__label">Programme Management</span>
-                        </a>
-                    </li>
-                </ul>
-            </aside>
-            <!-- /APP-SIDEBAR -->
+            <?php include_once("includes/sidebar.php"); ?>
 
             <!-- APP-CONTENT -->
-            <div class="app-content main-content">
+            <div class="app-content main-content mt-0">
                 <div class="side-app">
                     <div class="page-container">
                         <h2 style="margin-bottom: 30px; color: #333; font-weight: 700;">Programme & Course Management</h2>
@@ -1053,8 +1026,10 @@ if(isset($_GET['edit_course']) && !empty($_GET['edit_course'])) {
         </div>
     </div>
 
+    <!-- JQUERY JS -->
+    <script src="../assets/js/jquery.min.js"></script>
+    <!-- BOOTSTRAP JS -->
     <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../assets/js/jquery-3.6.0.min.js"></script>
     <!-- Perfect SCROLLBAR JS-->
     <script src="../assets/plugins/p-scroll/perfect-scrollbar.js"></script>
     <!-- STICKY JS -->
@@ -1065,13 +1040,8 @@ if(isset($_GET['edit_course']) && !empty($_GET['edit_course'])) {
     <script src="../assets/js/custom.js"></script>
     <!-- SWITCHER JS -->
     <script src="../assets/switcher/js/switcher.js"></script>
-    <!-- SIDEBAR TOGGLE -->
-    <script>
-        $(document).on('click', '[data-bs-toggle="sidebar"]', function (event) {
-            event.preventDefault();
-            $('.app').toggleClass('sidenav-toggled');
-        });
-    </script>
+    <!-- SIDE-MENU JS-->
+    <script src="../assets/plugins/sidemenu/sidemenu.js"></script>
     <script>
         function switchTab(tabName) {
             // Hide all tabs
