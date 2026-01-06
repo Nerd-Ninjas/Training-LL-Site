@@ -63,11 +63,44 @@ try {
     exit;
 }
 
-// Fetch all users with error handling
+// Fetch all batches for batch selection
+$batches = array();
 try {
-    $query = $con->prepare("SELECT * FROM users ORDER BY createdDate DESC LIMIT 1000");
-    $query->execute();
-    $users = $query->fetchAll(PDO::FETCH_ASSOC);
+    $batch_query = $con->prepare("SELECT id, batch_name, batch_unique_id, programme_id FROM batch_master ORDER BY batch_name ASC");
+    $batch_query->execute();
+    $batches = $batch_query->fetchAll(PDO::FETCH_ASSOC);
+} catch(Exception $e) {
+    $batches = array();
+}
+
+// Get selected batch from GET/POST parameter
+$selected_batch = isset($_GET['batch']) ? FormSanitizer::sanitizeFormString($_GET['batch']) : (isset($_POST['batch']) ? FormSanitizer::sanitizeFormString($_POST['batch']) : '');
+
+// Fetch users based on selected batch
+$users = array();
+try {
+    if(!empty($selected_batch)) {
+        // Fetch users from user_batch_mapping for the selected batch
+        $query = $con->prepare("
+            SELECT u.* 
+            FROM users u
+            INNER JOIN user_batch_mapping ubm ON u.username = ubm.username
+            WHERE ubm.batch_unique_id = ?
+            ORDER BY u.createdDate DESC
+        ");
+        $query->execute([$selected_batch]);
+        $users = $query->fetchAll(PDO::FETCH_ASSOC);
+    } else {
+        // If no batch selected, fetch all users from all batches
+        $query = $con->prepare("
+            SELECT DISTINCT u.* 
+            FROM users u
+            INNER JOIN user_batch_mapping ubm ON u.username = ubm.username
+            ORDER BY u.createdDate DESC
+        ");
+        $query->execute();
+        $users = $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 } catch(Exception $e) {
     $users = array();
 }
@@ -788,6 +821,32 @@ if(isset($_POST['bulk_upload'])) {
 					</div>
 					<!-- /PAGE-HEADER -->
 
+					<!-- BATCH SELECTOR -->
+					<div class="card mb-3">
+						<div class="card-body">
+							<form method="GET" class="row align-items-end">
+								<div class="col-md-6">
+									<label for="batchSelect" class="form-label">Select Batch:</label>
+									<select id="batchSelect" name="batch" class="form-control" onchange="this.form.submit();">
+										<option value="">-- All Batches --</option>
+										<?php foreach($batches as $batch): ?>
+											<option value="<?php echo htmlspecialchars($batch['batch_unique_id']); ?>" 
+												<?php echo (isset($_GET['batch']) && $_GET['batch'] == $batch['batch_unique_id']) ? 'selected' : ''; ?>>
+												<?php echo htmlspecialchars($batch['batch_name']); ?> (<?php echo htmlspecialchars($batch['batch_unique_id']); ?>)
+											</option>
+										<?php endforeach; ?>
+									</select>
+								</div>
+								<?php if(!empty($selected_batch)): ?>
+									<div class="col-md-6">
+										<a href="user_management.php" class="btn btn-secondary">Clear Filter</a>
+									</div>
+								<?php endif; ?>
+							</form>
+						</div>
+					</div>
+					<!-- /BATCH SELECTOR -->
+
 					<!-- ALERTS -->
 					<?php if(isset($_GET['success'])): ?>
 						<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -842,7 +901,22 @@ if(isset($_POST['bulk_upload'])) {
 					<!-- CARD -->
 					<div class="card">
 						<div class="card-header">
-							<h3 class="card-title">All Users</h3>
+							<h3 class="card-title">
+								<?php 
+									if(!empty($selected_batch)) {
+										$batch_label = '';
+										foreach($batches as $batch) {
+											if($batch['batch_unique_id'] == $selected_batch) {
+												$batch_label = $batch['batch_name'];
+												break;
+											}
+										}
+										echo "Users in Batch: " . htmlspecialchars($batch_label);
+									} else {
+										echo "All Users (All Batches)";
+									}
+								?>
+							</h3>
 						</div>
 						<div class="card-body">
 							<div class="table-responsive">

@@ -231,15 +231,17 @@ try {
     $programmes = array();
 }
 
-// Fetch assigned programmes for this user
+// Fetch assigned programmes for this user from user_batch_mapping
 $assigned_programmes = array();
 try {
     $assigned_query = $con->prepare("
-        SELECT pa.id, pa.programme_id, pm.programme_id as prog_code, pm.programme_name, pa.assigned_date
-        FROM programme_assign pa
-        JOIN programmes_master pm ON pa.programme_id = pm.id
-        WHERE pa.user_id = ?
-        ORDER BY pa.assigned_date DESC
+        SELECT DISTINCT ubm.course_id, ubm.batch_unique_id, bm.batch_name, ubm.approvedDate
+        FROM user_batch_mapping ubm
+        JOIN batch_master bm ON ubm.batch_unique_id = bm.batch_unique_id
+        WHERE ubm.username = (SELECT username FROM users WHERE id = ?)
+        AND ubm.course_id IS NOT NULL
+        AND ubm.course_id != ''
+        ORDER BY ubm.approvedDate DESC
     ");
     $assigned_query->execute([$user_id]);
     $assigned_programmes = $assigned_query->fetchAll(PDO::FETCH_ASSOC);
@@ -745,7 +747,7 @@ try {
 
                                 <!-- Programme Assignment -->
                                 <div class="info-section">
-                                    <div class="info-section-title">Assigned Programmes</div>
+                                    <div class="info-section-title">Assigned Courses</div>
                                     <?php if(!empty($assigned_programmes)): ?>
                                         <div style="margin-bottom: 20px;">
                                             <div style="display: grid; gap: 12px;">
@@ -753,22 +755,19 @@ try {
                                                     <div style="background: #f8f9fa; padding: 15px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #667eea;">
                                                         <div>
                                                             <div style="font-weight: 600; color: #333; margin-bottom: 4px;">
-                                                                <?php echo htmlspecialchars($prog['programme_name']); ?>
+                                                                <?php echo htmlspecialchars($prog['course_id']); ?>
                                                             </div>
                                                             <div style="font-size: 12px; color: #999;">
-                                                                Code: <?php echo htmlspecialchars($prog['prog_code']); ?> | Assigned: <?php echo date('d M Y', strtotime($prog['assigned_date'])); ?>
+                                                                Batch: <?php echo htmlspecialchars($prog['batch_name']); ?> | Assigned: <?php echo date('d M Y', strtotime($prog['approvedDate'])); ?>
                                                             </div>
                                                         </div>
-                                                        <a href="?id=<?php echo $user_id; ?>&remove_programme=<?php echo $prog['programme_id']; ?>" 
-                                                           onclick="return confirm('Remove this programme assignment?')" 
-                                                           style="color: #dc3545; text-decoration: none; font-weight: 600; font-size: 14px;">Remove</a>
                                                     </div>
                                                 <?php endforeach; ?>
                                             </div>
                                         </div>
                                     <?php else: ?>
                                         <div style="color: #999; font-style: italic; padding: 15px 0;">
-                                            No programmes assigned yet.
+                                            No courses assigned yet.
                                         </div>
                                     <?php endif; ?>
                                 </div>

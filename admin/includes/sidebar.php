@@ -58,7 +58,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 						</li>
 					</ul>
 				</li>
-				<li class="slide <?php echo ($current_page == 'programme_management.php' || $current_page == 'download_csv_template.php') ? 'active' : ''; ?>">
+				<li class="slide <?php echo ($current_page == 'programme_management.php' || $current_page == 'download_csv_template.php' || $current_page == 'batch_management.php') ? 'active' : ''; ?>">
 					<a class="side-menu__item" data-bs-toggle="slide" href="javascript: void(0);">
 						<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
 							<path d="M4 6h16V4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v2h8v-2h4c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 12V6h16v12H4z"/>
@@ -72,6 +72,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
 						</li>
 						<li>
 							<a href="programme_management.php" class="slide-item <?php echo ($current_page == 'programme_management.php') ? 'active' : ''; ?>">Manage Programmes</a>
+						</li>
+						<li>
+							<a href="batch_management.php" class="slide-item <?php echo ($current_page == 'batch_management.php') ? 'active' : ''; ?>">Batch Management</a>
 						</li>
 						<li>
 							<a href="download_csv_template.php" class="slide-item <?php echo ($current_page == 'download_csv_template.php') ? 'active' : ''; ?>">Download CSV Template</a>
