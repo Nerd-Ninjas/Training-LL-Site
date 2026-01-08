@@ -1,4 +1,6 @@
 <?php
+require_once("Constants.php");
+
 class Account {
 
     private $con;
