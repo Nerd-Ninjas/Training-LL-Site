@@ -236,6 +236,25 @@ try {
             left: 0;
             top: 60px;
             z-index: 999;
+            transition: transform 0.3s ease;
+        }
+
+        .app-sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px 12px;
+            color: var(--text);
+            font-size: 20px;
+        }
+
+        .hamburger.show {
+            display: block;
         }
 
         .sidebar-section {
@@ -457,7 +476,7 @@ try {
         /* Responsive */
         @media (max-width: 1024px) {
             .app-sidebar {
-                display: none;
+                display: block;
             }
 
             .app-content {
@@ -472,6 +491,10 @@ try {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+            }
+
+            .hamburger.show {
+                display: block;
             }
         }
 
@@ -509,6 +532,9 @@ try {
     <div class="page">
         <!-- Header -->
         <div class="header">
+            <button class="hamburger" id="sidebarToggle" title="Toggle Sidebar">
+                <i class="ri-menu-line"></i>
+            </button>
             <a class="logo" href="<?php echo $isAdmin ? '../admin/index.php' : 'my_courses.php'; ?>">
                 <img src="../assets/images/brand/CV_Logo.png" style="width:140px;height:40px;" alt="logo">
             </a>
@@ -526,10 +552,33 @@ try {
 
         <!-- Main Layout -->
         <div class="page-main">
-            <!-- Sidebar (Only for Admin) -->
-            <?php if($isAdmin): ?>
-            <?php include_once("../admin/includes/sidebar.php"); ?>
-            <?php endif; ?>
+            <!-- Sidebar -->
+            <div class="app-sidebar hidden" id="appSidebar">
+                <?php if($isAdmin): ?>
+                    <?php include_once("../admin/includes/sidebar.php"); ?>
+                <?php else: ?>
+                    <!-- User Sidebar Menu -->
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">Menu</div>
+                        <a class="sidebar-item" href="my_courses.php">
+                            <i class="ri-book-line" style="margin-right:12px;"></i> My Courses
+                        </a>
+                        <a class="sidebar-item" href="profile.php">
+                            <i class="ri-user-line" style="margin-right:12px;"></i> My Profile
+                        </a>
+                        <a class="sidebar-item" href="tools.php">
+                            <i class="ri-tools-line" style="margin-right:12px;"></i> Tools
+                        </a>
+                    </div>
+
+                    <div class="sidebar-section">
+                        <div class="sidebar-label">Account</div>
+                        <a class="sidebar-item" href="logout.php">
+                            <i class="ri-logout-box-line" style="margin-right:12px;"></i> Logout
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
 
             <!-- Content Area -->
             <div class="app-content">
@@ -746,6 +795,52 @@ try {
 
     <!-- CUSTOM JS -->
     <script src="../assets/js/custom.js"></script>
+
+    <script>
+        // Sidebar Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleBtn = document.getElementById('sidebarToggle');
+            const sidebar = document.getElementById('appSidebar');
+            const contentArea = document.querySelector('.app-content');
+
+            if(toggleBtn && sidebar) {
+                toggleBtn.classList.add('show');
+                
+                toggleBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('hidden');
+                });
+
+                // Close sidebar when clicking on a link
+                sidebar.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', function() {
+                        if(window.innerWidth < 1024) {
+                            sidebar.classList.add('hidden');
+                        }
+                    });
+                });
+
+                // Responsive behavior
+                window.addEventListener('resize', function() {
+                    if(window.innerWidth >= 1024) {
+                        sidebar.classList.remove('hidden');
+                        toggleBtn.style.display = 'none';
+                    } else {
+                        toggleBtn.style.display = 'block';
+                        sidebar.classList.add('hidden');
+                    }
+                });
+
+                // Initial state
+                if(window.innerWidth >= 1024) {
+                    sidebar.classList.remove('hidden');
+                    toggleBtn.style.display = 'none';
+                } else {
+                    sidebar.classList.add('hidden');
+                    toggleBtn.style.display = 'block';
+                }
+            }
+        });
+    </script>
 
     <?php if($isOwnProfile): ?>
     <script>
