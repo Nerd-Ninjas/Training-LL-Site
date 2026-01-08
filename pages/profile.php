@@ -392,6 +392,86 @@ $sidebar_file = $isAdmin ? '../admin/includes/sidebar.php' : '../includes/sideba
         .back-button:hover {
             color: #5a3aa0;
         }
+
+        /* Admin Layout Styles */
+        .app-sidebar {
+            transition: all 0.3s ease;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: white;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .app-sidebar.show {
+            left: 0;
+            display: block;
+        }
+
+        .app-sidebar__overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .app-sidebar__overlay.show {
+            display: block;
+        }
+
+        @media (min-width: 1024px) {
+            .app-sidebar {
+                position: fixed;
+                left: 0;
+                top: 0;
+                width: 280px;
+                height: 100vh;
+                background: white;
+                box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+                z-index: 999;
+                display: block !important;
+            }
+
+            .app-sidebar__overlay {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .app-sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                width: 280px;
+                height: 100vh;
+                background: white;
+                box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+                z-index: 1000;
+                transition: left 0.3s ease;
+                overflow-y: auto;
+            }
+
+            .app-sidebar.show {
+                left: 0;
+            }
+
+            .app-sidebar__overlay.show {
+                display: block;
+                z-index: 999;
+            }
+
+            .page-main.sidebar-open {
+                overflow: hidden;
+            }
+        }
     </style>
 
 </head>
@@ -457,9 +537,7 @@ $sidebar_file = $isAdmin ? '../admin/includes/sidebar.php' : '../includes/sideba
             <?php else: ?>
                 <!-- User Header -->
                 <?php include_once("../includes/head_login.php"); ?>
-                
-                <div class="main-content">
-                    <div class="page-container">
+                <div class="page-container">
             <?php endif; ?>
 
                         <!-- Back Button -->
@@ -673,6 +751,7 @@ $sidebar_file = $isAdmin ? '../admin/includes/sidebar.php' : '../includes/sideba
                         </div>
                         <?php endif; ?>
 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -688,6 +767,46 @@ $sidebar_file = $isAdmin ? '../admin/includes/sidebar.php' : '../includes/sideba
 
     <!-- CUSTOM JS -->
     <script src="../assets/js/custom.js"></script>
+
+    <!-- Sidebar Toggle Script (for admin only) -->
+    <?php if($isAdmin): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const sidebarToggle = document.querySelector('.app-sidebar__toggle');
+            const sidebar = document.querySelector('.app-sidebar');
+            const overlay = document.querySelector('.app-sidebar__overlay');
+            const pageMain = document.querySelector('.page-main');
+            
+            if (sidebarToggle) {
+                sidebarToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (sidebar) {
+                        sidebar.classList.toggle('show');
+                    }
+                    if (overlay) {
+                        overlay.classList.toggle('show');
+                    }
+                    if (pageMain) {
+                        pageMain.classList.toggle('sidebar-open');
+                    }
+                });
+            }
+            
+            if (overlay) {
+                overlay.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    if (sidebar) {
+                        sidebar.classList.remove('show');
+                    }
+                    this.classList.remove('show');
+                    if (pageMain) {
+                        pageMain.classList.remove('sidebar-open');
+                    }
+                });
+            }
+        });
+    </script>
+    <?php endif; ?>
 
     <?php if($isOwnProfile): ?>
     <!-- Save Profile Changes Script -->
