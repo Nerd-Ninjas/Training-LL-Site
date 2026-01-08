@@ -557,26 +557,7 @@ try {
                 <?php if($isAdmin): ?>
                     <?php include_once("../admin/includes/sidebar.php"); ?>
                 <?php else: ?>
-                    <!-- User Sidebar Menu -->
-                    <div class="sidebar-section">
-                        <div class="sidebar-label">Menu</div>
-                        <a class="sidebar-item" href="my_courses.php">
-                            <i class="ri-book-line" style="margin-right:12px;"></i> My Courses
-                        </a>
-                        <a class="sidebar-item" href="profile.php">
-                            <i class="ri-user-line" style="margin-right:12px;"></i> My Profile
-                        </a>
-                        <a class="sidebar-item" href="tools.php">
-                            <i class="ri-tools-line" style="margin-right:12px;"></i> Tools
-                        </a>
-                    </div>
-
-                    <div class="sidebar-section">
-                        <div class="sidebar-label">Account</div>
-                        <a class="sidebar-item" href="logout.php">
-                            <i class="ri-logout-box-line" style="margin-right:12px;"></i> Logout
-                        </a>
-                    </div>
+                    <?php include_once("../includes/sidebar.php"); ?>
                 <?php endif; ?>
             </div>
 
