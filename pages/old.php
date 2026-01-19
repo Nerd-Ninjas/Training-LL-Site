@@ -34,21 +34,13 @@ if($avatarID > 0) {
 	}
 }
 
-// Fetch all assigned courses from multiple tables
+// Fetch all assigned courses
 $userCourses = array();
 try {
 	$coursesQuery = $con->prepare("
-		SELECT DISTINCT 
-			ubm.course_id, 
-			ubm.batch_unique_id, 
-			ubm.approvedDate,
-			bm.batch_name, 
-			bm.programme_start_date, 
-			bm.programme_end_date,
-			cm.course_name
+		SELECT DISTINCT ubm.course_id, bm.batch_name, ubm.batch_unique_id, ubm.approvedDate
 		FROM user_batch_mapping ubm
 		LEFT JOIN batch_master bm ON ubm.batch_unique_id = bm.batch_unique_id
-		LEFT JOIN courses_master cm ON ubm.course_id = cm.course_id
 		WHERE ubm.username = ?
 		AND ubm.course_id IS NOT NULL
 		AND ubm.course_id != ''
@@ -110,11 +102,125 @@ try {
 			min-height: 100vh;
 		}
 
+		/* NAVBAR */
+		.top-navbar {
+			background: white;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+			padding: 12px 0;
+			position: sticky;
+			top: 0;
+			z-index: 999;
+		}
+
+		.navbar-content {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 0 30px;
+		}
+
+		.navbar-logo img {
+			height: 40px;
+			width: auto;
+		}
+
+		.navbar-right {
+			display: flex;
+			align-items: center;
+			gap: 20px;
+		}
+
+		.profile-dropdown {
+			position: relative;
+		}
+
+		.profile-btn {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			background: none;
+			border: none;
+			cursor: pointer;
+			padding: 6px 12px;
+			border-radius: 8px;
+			transition: background 0.3s;
+		}
+
+		.profile-btn:hover {
+			background: #f0f0f0;
+		}
+
+		.profile-avatar {
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			object-fit: cover;
+			border: 2px solid #e0e0e0;
+		}
+
+		.profile-name {
+			font-weight: 600;
+			color: #1a1a1a;
+			font-size: 0.95rem;
+		}
+
+		.dropdown-content {
+			position: absolute;
+			top: 100%;
+			right: 0;
+			background: white;
+			border: 1px solid #e0e0e0;
+			border-radius: 8px;
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+			min-width: 200px;
+			margin-top: 8px;
+			display: none;
+			z-index: 1000;
+		}
+
+		.dropdown-content.show {
+			display: block;
+		}
+
+		.dropdown-content a {
+			display: block;
+			padding: 12px 16px;
+			color: #1a1a1a;
+			text-decoration: none;
+			font-size: 0.95rem;
+			border-bottom: 1px solid #f0f0f0;
+			transition: background 0.2s;
+		}
+
+		.dropdown-content a:last-child {
+			border-bottom: none;
+		}
+
+		.dropdown-content a:hover {
+			background: #f7f9fa;
+		}
+
+		.dropdown-content svg {
+			width: 18px;
+			height: 18px;
+			margin-right: 10px;
+			display: inline-block;
+		}
+
+		/* MAIN CONTAINER */
+		.main-container {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 0;
+		}
+
 		/* PAGE HEADER */
 		.page-header-section {
 			margin-bottom: 20px;
 			padding-bottom: 15px;
-			margin-top: 0px;
+			margin-top: 70px;
 		}
 
 		.page-title {
@@ -382,6 +488,15 @@ try {
 				gap: 10px;
 			}
 
+			.course-thumbnail-small {
+				width: 50px;
+				height: 50px;
+			}
+
+			.course-icon-small {
+				font-size: 1.5rem;
+			}
+
 			.course-name {
 				font-size: 14px;
 			}
@@ -408,6 +523,94 @@ try {
 			.empty-state p {
 				font-size: 0.9rem;
 			}
+
+		/* SIDEBAR TOGGLE STYLES */
+		.sticky {
+			position: relative;
+		}
+
+		.app-sidebar {
+			transition: all 0.3s ease;
+			position: fixed;
+			left: 0;
+			top: 0;
+			width: 280px;
+			height: 100vh;
+			background: white;
+			box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+			z-index: 1000;
+			overflow-y: auto;
+		}
+
+		.app-sidebar.show {
+			left: 0;
+			display: block;
+		}
+
+		.app-sidebar__overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0,0,0,0.5);
+			z-index: 999;
+			display: none;
+		}
+
+		.app-sidebar__overlay.show {
+			display: block;
+		}
+
+		/* Desktop - Sidebar visible by default */
+		@media (min-width: 1024px) {
+			.app-sidebar {
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 280px;
+				height: 100vh;
+				background: white;
+				box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+				z-index: 999;
+				display: block !important;
+			}
+
+			.app-sidebar__overlay {
+				display: none !important;
+			}
+		}
+
+		/* Tablet and Mobile - Sidebar hidden by default */
+		@media (max-width: 1023px) {
+			.app-sidebar {
+				position: fixed;
+				left: -280px;
+				top: 0;
+				width: 280px;
+				height: 100vh;
+				background: white;
+				box-shadow: 2px 0 8px rgba(0,0,0,0.15);
+				z-index: 1000;
+				transition: left 0.3s ease;
+				overflow-y: auto;
+			}
+
+			.app-sidebar.show {
+				left: 0;
+			}
+
+			.app-sidebar__overlay.show {
+				display: block;
+				z-index: 999;
+			}
+
+			/* Adjust content when sidebar is open */
+			.page-main.sidebar-open {
+				overflow: hidden;
+			}
+		}
+			
 		}
 	</style>
 </head>
@@ -447,17 +650,11 @@ try {
 														<small class="text-muted">User Account</small>
 													</div>
 												</div>
-												<a class="dropdown-item" href="profile.php">
-													<svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>My Profile
-												</a>
-												<a class="dropdown-item" href="my_courses.php">
-													<svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M4 6h16V4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v2h8v-2h4c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 12V6h16v12H4z"/></svg>My Courses
-												</a>
 												<a class="dropdown-item" href="../landing.php">
 													<svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Landing Page
 												</a>
 												<a class="dropdown-item" href="../logout.php">
-													<svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>Logout
+													<svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>Logout
 												</a>
 											</div>
 										</div>
@@ -479,7 +676,7 @@ try {
 				<div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
 				<div class="app-sidebar">
 					<div class="side-header">
-						<a class="header-brand1" href="my_courses.php">
+						<a class="header-brand1" href="../landing.php">
 							<img src="../assets/images/brand/full-logo-dark.png" class="header-brand-img desktop-logo" alt="logo">
 							<img src="../assets/images/brand/LL-logo-light.png" class="header-brand-img toggle-logo" alt="logo">
 							<img src="../assets/images/brand/LL-logo-light.png" class="header-brand-img light-logo" alt="logo">
@@ -491,15 +688,7 @@ try {
 							<li>
 								<h3>Menu</h3>
 							</li>
-							<li class="slide">
-								<a class="side-menu__item has-link" href="profile.php">
-									<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-										<path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-									</svg>
-									<span class="side-menu__label">My Profile</span>
-								</a>
-							</li>
-							<li class="slide active">
+							<li class="slide <?php echo ($current_page == 'my_courses.php') ? 'active' : ''; ?>">
 								<a class="side-menu__item has-link" href="my_courses.php">
 									<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
 										<path d="M4 6h16V4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v2h8v-2h4c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 12V6h16v12H4z"/>
@@ -512,13 +701,13 @@ try {
 									<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
 										<path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
 									</svg>
-									<span class="side-menu__label">Landing Page</span>
+									<span class="side-menu__label">Home</span>
 								</a>
 							</li>
 							<li class="slide">
 								<a class="side-menu__item has-link" href="../logout.php">
 									<svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-										<path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+										<path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
 									</svg>
 									<span class="side-menu__label">Logout</span>
 								</a>
@@ -557,7 +746,7 @@ try {
 									<div class="course-item">
 										<div class="course-header-info">
 											<div class="course-details-info">
-												<h4 class="course-name"><?php echo htmlspecialchars($course['course_name'] ?? $course['course_id']); ?></h4>
+												<h4 class="course-name"><?php echo htmlspecialchars($course['course_id']); ?></h4>
 												<p class="course-batch-info"><?php echo htmlspecialchars($course['batch_name'] ?? 'Professional Training'); ?></p>
 											</div>
 										</div>
@@ -612,24 +801,75 @@ try {
 	<script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
 	<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
-	<!-- SIDE-MENU JS-->
-	<script src="../assets/plugins/sidemenu/sidemenu.js"></script>
-
-	<!-- PERFECT SCROLLBAR JS-->
-	<script src="../assets/plugins/p-scroll/perfect-scrollbar.js"></script>
-	<script src="../assets/plugins/p-scroll/pscroll.js"></script>
-
-	<!-- STICKY JS -->
-	<script src="../assets/js/sticky.js"></script>
-
-	<!-- COLOR THEME JS -->
-	<script src="../assets/js/themeColors.js"></script>
-
 	<!-- CUSTOM JS -->
 	<script src="../assets/js/custom.js"></script>
 
-	<!-- SWITCHER JS -->
-	<script src="../assets/switcher/js/switcher.js"></script>
+	<!-- Sidebar Toggle Script -->
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			// Sidebar toggle functionality
+			const sidebarToggle = document.querySelector('.app-sidebar__toggle');
+			const sidebar = document.querySelector('.app-sidebar');
+			const overlay = document.querySelector('.app-sidebar__overlay');
+			const pageMain = document.querySelector('.page-main');
+			
+			if (sidebarToggle) {
+				sidebarToggle.addEventListener('click', function(e) {
+					e.preventDefault();
+					if (sidebar) {
+						sidebar.classList.toggle('show');
+					}
+					if (overlay) {
+						overlay.classList.toggle('show');
+					}
+					if (pageMain) {
+						pageMain.classList.toggle('sidebar-open');
+					}
+				});
+			}
+			
+			// Close sidebar when overlay is clicked
+			if (overlay) {
+				overlay.addEventListener('click', function(e) {
+					e.preventDefault();
+					if (sidebar) {
+						sidebar.classList.remove('show');
+					}
+					this.classList.remove('show');
+					if (pageMain) {
+						pageMain.classList.remove('sidebar-open');
+					}
+				});
+			}
+		});
+	</script>
+
+	<!-- Dropdown Toggle -->
+	<script>
+		function toggleDropdown() {
+			var dropdown = document.getElementById('profileDropdown');
+			if (dropdown) {
+				dropdown.classList.toggle('show');
+			}
+		}
+
+		// Close dropdown when clicking outside
+		document.addEventListener('click', function(event) {
+			var dropdown = document.getElementById('profileDropdown');
+			var profileBtn = document.querySelector('.profile-btn');
+			if (dropdown && profileBtn && !dropdown.contains(event.target) && !profileBtn.contains(event.target)) {
+				dropdown.classList.remove('show');
+			}
+		});
+
+		// Hide loader on page load
+		window.addEventListener('load', function() {
+			var loader = document.getElementById('global-loader');
+			if(loader) {
+				loader.style.display = 'none';
+			}
+		});
+	</script>
 
 </body>
 

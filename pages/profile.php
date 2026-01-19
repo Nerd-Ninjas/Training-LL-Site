@@ -1,211 +1,112 @@
 <?php
 require_once("../includes/config.php");
+require_once("../includes/head_main.php");
+require_once("../includes/classes/FormSanitizer.php");
+require_once("../includes/classes/Constants.php");
 require_once("../includes/classes/Account.php");
 
 // Check if user is logged in
-if(!isset($_SESSION["username"]) || empty($_SESSION["username"])) {
+if(!$_SESSION["username"]) {
     header("Location: ../login.php");
     exit;
 }
 
-// Get the user ID to display (can be current user or passed via parameter)
-$user_id_to_display = null;
-$isOwnProfile = false;
-$isAdmin = isset($_SESSION["userType"]) && $_SESSION["userType"] == 1;
-
-// Get current user's ID first
 $account = new Account($con);
 $username = $_SESSION["username"];
 $userDetails = $account->getUserDetails($username);
 
-if(!$userDetails) {
-    echo "User not found";
-    exit;
-}
+// Check if viewing own profile or another user
+$view_uid = isset($_GET['uid']) ? $_GET['uid'] : $userDetails['id'];
+$isOwnProfile = ($view_uid == $userDetails['id']);
 
-$current_user_id = $userDetails['id'] ?? 0;
-
-// Check if viewing someone else's profile (admin only)
-if(isset($_GET['id']) && !empty($_GET['id'])) {
-    $requested_id = intval($_GET['id']);
-    
-    // Only admins can view other profiles
-    if($isAdmin && $requested_id != $current_user_id) {
-        // Fetch the requested user's details
-        try {
-            $view_query = $con->prepare("SELECT id, firstName, lastName, email, username, mobileNumber, avatarID, createdDate FROM users WHERE id = ?");
-            $view_query->execute([$requested_id]);
-            $view_user = $view_query->fetch(PDO::FETCH_ASSOC);
-            
-            if($view_user) {
-                $user_id_to_display = $requested_id;
-                $userDetails = $view_user;
-                $isOwnProfile = false;
-            } else {
-                // User not found
-                header("Location: my_courses.php?error=User not found");
-                exit;
-            }
-        } catch(Exception $e) {
-            header("Location: my_courses.php?error=Database error");
-            exit;
-        }
-    } else {
-        // Regular users can only view their own profile
-        $user_id_to_display = $current_user_id;
-        $isOwnProfile = true;
+if(!$isOwnProfile) {
+    // Check if user exists
+    $stmt = $con->prepare("SELECT * FROM users WHERE id = ?");
+    $stmt->execute([$view_uid]);
+    $profileUser = $stmt->fetch(PDO::FETCH_ASSOC);
+    if(!$profileUser) {
+        header("Location: my_courses.php");
+        exit;
     }
+    $firstName = $profileUser['firstName'];
+    $lastName = $profileUser['lastName'];
+    $email = $profileUser['email'];
+    $phone = $profileUser['phone'] ?? '';
+    $avatarID = $profileUser['avatarID'];
+    $created = $profileUser['created'] ?? date('Y-m-d');
 } else {
-    // Display current user's profile
-    $user_id_to_display = $current_user_id;
-    $isOwnProfile = true;
+    $firstName = $userDetails['firstName'];
+    $lastName = $userDetails['lastName'];
+    $email = $userDetails['email'];
+    $phone = $userDetails['phone'] ?? '';
+    $avatarID = $userDetails['avatarID'];
+    $created = $userDetails['created'] ?? date('Y-m-d');
 }
 
-// Extract user details
-$firstName = $userDetails['firstName'] ?? '';
-$lastName = $userDetails['lastName'] ?? '';
-$email = $userDetails['email'] ?? '';
-$phone = $userDetails['mobileNumber'] ?? '';
-$uid = $userDetails['id'] ?? '';
-$created = isset($userDetails['createdDate']) ? date('d M, Y', strtotime($userDetails['createdDate'])) : '';
-$avatarID = $userDetails['avatarID'] ?? 0;
+// Get avatar
+$avatarDetails = $account->avatarFetch($avatarID);
+$filePath = $avatarDetails['filePath'];
 
-// Get avatar with null check
-$filePath = '../assets/images/faces/6.jpg';
-if($avatarID > 0) {
-    try {
-        $avatarDetails = $account->avatarFetch($avatarID);
-        if($avatarDetails && isset($avatarDetails['filePath'])) {
-            $filePath = $avatarDetails['filePath'];
-        }
-    } catch(Exception $e) {
-        $filePath = '../assets/images/faces/6.jpg';
-    }
-}
+// Check if user is admin
+$isAdmin = $userDetails['type'] == 1;
 
-// Fetch user personal info
-$address = '';
-$city = '';
-$state = '';
-$country = '';
-$postal_code = '';
-$occupation = '';
-$college_name = '';
-$phone_verified = 0;
-$email_verified = 0;
+// Get current page
+$current_page = basename($_SERVER['PHP_SELF']);
 
-try {
-    $personal_query = $con->prepare("SELECT * FROM user_personal_info WHERE user_id = ?");
-    $personal_query->execute([$user_id_to_display]);
-    $personal_info = $personal_query->fetch(PDO::FETCH_ASSOC);
-    
-    if($personal_info) {
-        $address = $personal_info['address'] ?? '';
-        $city = $personal_info['city'] ?? '';
-        $state = $personal_info['state'] ?? '';
-        $country = $personal_info['country'] ?? '';
-        $postal_code = $personal_info['postal_code'] ?? '';
-        $occupation = $personal_info['occupation'] ?? '';
-        $college_name = $personal_info['college_name'] ?? '';
-        $phone_verified = $personal_info['phone_verified'] ?? 0;
-        $email_verified = $personal_info['email_verified'] ?? 0;
-    }
-} catch(Exception $e) {
-    // Personal info not found, use empty values
-}
+// Get user's current page for sidebar active state
+$_SESSION['course_id'] = $_SESSION['course_id'] ?? '';
 ?>
-<!doctype html>
-<html lang="en" dir="ltr">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <!-- META DATA -->
     <meta charset="UTF-8">
-    <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="description" content="Profile - Learnlike Training">
-    <meta name="author" content="Learnlike">
-    <meta name="keywords" content="admin, dashboard, training, courses">
-    <meta property="og:url" content="https://training.learnlike.in" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="Profile - Learnlike Training" />
-    <meta property="og:description" content="" />
-    <meta property="og:image" content="https://learnlike.in/assets/themes/pan/img/LL-logo-light-new.png" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Learnlike's Training</title>
+    
     <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/brand/favicon.ico"/>
-
-    <!-- TITLE -->
-    <title>My Profile - Learnlike Training</title>
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/images/brand/LL-logo-light.png"/>
 
     <!-- BOOTSTRAP CSS -->
-    <link id="style" href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link id="style" href="../assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- STYLE CSS -->
-    <link href="../assets/css/style.css" rel="stylesheet" />
-    <link href="../assets/css/skin-modes.css" rel="stylesheet" />
+    <link href="../assets/css/style.css" rel="stylesheet"/>
+    <link href="../assets/css/skin-modes.css" rel="stylesheet"/>
 
     <!-- FONT-ICONS CSS -->
-    <link href="../assets/css/icons.css" rel="stylesheet" />
+    <link href="../assets/css/icons.css" rel="stylesheet"/>
 
     <!-- INTERNAL Switcher css -->
-    <link href="../assets/switcher/css/switcher.css" rel="stylesheet" />
-    <link href="../assets/switcher/demo.css" rel="stylesheet" />
+    <link href="../assets/switcher/css/switcher.css" rel="stylesheet"/>
+    <link href="../assets/switcher/demo.css" rel="stylesheet"/>
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #f7f9fa;
-        }
-
-        .app-content {
-            background: #f7f9fa;
-        }
-
-        /* MAIN CONTAINER */
-        .main-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0;
-        }
-
-        /* PAGE HEADER */
+        /* PROFILE PAGE CUSTOM STYLES */
         .page-header-section {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            margin-top: 10px;
+            margin-bottom: 30px;
         }
 
         .page-title {
-            font-size: 1.5rem;
+            font-size: 28px;
             font-weight: 700;
-            color: #333;
-            margin: 0 0 6px 0;
-        }
-
-        .page-subtitle {
-            font-size: 0.9rem;
-            color: #999;
+            color: #1f2937;
             margin: 0;
         }
 
-        /* PROFILE CARD */
         .profile-card {
-            border: 1px solid #e7eef7;
-            border-radius: 12px;
-            padding: 30px;
-            background: white;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             display: flex;
             gap: 30px;
-            align-items: flex-start;
+            background: white;
+            border: 1px solid #e7eef7;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .profile-avatar-container {
+            display: flex;
+            justify-content: center;
             flex-shrink: 0;
         }
 
@@ -213,9 +114,12 @@ try {
             width: 120px;
             height: 120px;
             border-radius: 50%;
+            border: 3px solid #6b46c1;
             overflow: hidden;
-            border: 4px solid #fff;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f3f4f6;
         }
 
         .profile-avatar img {
@@ -226,25 +130,27 @@ try {
 
         .profile-info {
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .profile-name {
-            margin: 0;
             font-size: 24px;
             font-weight: 700;
             color: #1f2937;
-            margin-bottom: 8px;
+            margin: 0 0 10px 0;
         }
 
         .profile-role {
-            color: #6b46c1;
             font-weight: 600;
-            background: #f3e8ff;
+            color: #6b46c1;
             padding: 4px 12px;
             border-radius: 20px;
             font-size: 12px;
             display: inline-block;
             margin-bottom: 15px;
+            background: #f3e8ff;
         }
 
         .profile-email {
@@ -342,35 +248,73 @@ try {
         .modal-content {
             border: 1px solid #e7eef7;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
         }
 
         .modal-header {
-            background: #6b46c1;
-            color: white;
-            border: none;
+            background: white;
+            border-bottom: 1px solid #e7eef7;
+            padding: 20px;
         }
 
-        .form-control {
+        .modal-title {
+            font-weight: 700;
+            color: #1f2937;
+            font-size: 18px;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-control, .form-select {
             border: 1px solid #e7eef7;
             border-radius: 8px;
             padding: 10px 12px;
             font-size: 14px;
         }
 
-        .form-control:focus {
+        .form-control:focus, .form-select:focus {
             border-color: #6b46c1;
             box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+        }
+
+        .btn-primary {
+            background: #6b46c1;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .btn-primary:hover {
+            background: #5a3ba1;
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 1px solid #e7eef7;
+            color: #6b7280;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            background: #f9fafb;
+            border-color: #d1d5db;
         }
 
         .btn-save {
             background: #6b46c1;
             color: white;
             border: none;
-            padding: 10px 24px;
+            padding: 10px 20px;
             border-radius: 8px;
-            font-weight: 600;
             cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
             transition: all 0.2s;
         }
 
@@ -422,15 +366,18 @@ try {
 </head>
 
 <body class="app sidebar-mini ltr">
+
+    <!-- PAGE -->
     <div class="page">
         <div class="page-main">
+
             <!-- app-Header -->
             <div class="app-header header sticky">
                 <div class="container-fluid main-container">
                     <div class="d-flex">
                         <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript: void(0);"></a>
                         <!-- sidebar-toggle-->
-                        <a class="logo-horizontal" href="<?php echo $isAdmin ? '../admin/index.php' : '../landing.php'; ?>">
+                        <a class="logo-horizontal" href="my_courses.php">
                             <img src="../assets/images/brand/CV_Logo.png" style="width:180px;height:50px;" class="header-brand-img desktop-logo" alt="logo">
                             <img src="../assets/images/brand/CV_Logo.png" style="width:180px;height:50px;" class="header-brand-img light-logo1" alt="logo">
                         </a>
@@ -446,18 +393,23 @@ try {
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
                                     <div class="d-flex order-lg-2">
                                         <div class="dropdown d-flex profile-1">
-                                            <a href="javascript: void(0);" data-bs-toggle="dropdown" class="nav-link leading-none d-flex">
-                                                <img src="<?php echo htmlspecialchars($filePath); ?>" alt="profile-user" class="avatar profile-user brround cover-image" onerror="this.src='../assets/images/faces/6.jpg'">
+                                            <a href="javascript: void(0);" data-bs-toggle="dropdown"
+                                                class="nav-link leading-none d-flex">
+                                                <img src="<?php echo htmlspecialchars($filePath); ?>" alt="profile-user"
+                                                    class="avatar profile-user brround cover-image">
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                                 <div class="drop-heading">
                                                     <div class="text-center">
                                                         <h5 class="text-dark mb-0 d-block"><?php echo htmlspecialchars($firstName . " " . $lastName); ?></h5>
-                                                        <small class="text-muted"><?php echo $isAdmin ? 'Admin Account' : 'User Account'; ?></small>
+                                                        <small class="text-muted"><?php echo $isAdmin ? 'Admin User' : 'User'; ?></small>
                                                     </div>
                                                 </div>
                                                 <a class="dropdown-item" href="profile.php">
-                                                    <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>My Profile
+                                                    <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>Profile
+                                                </a>
+                                                <a class="dropdown-item" href="my_courses.php">
+                                                    <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>My Courses
                                                 </a>
                                                 <a class="dropdown-item" href="../landing.php">
                                                     <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>Landing Page
@@ -466,7 +418,7 @@ try {
                                                     <svg class="svg-icon me-2" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/></svg>Logout
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div>	
                                     </div>
                                 </div>
                             </div>
@@ -477,14 +429,11 @@ try {
             <!-- /app-Header -->
 
             <!-- SIDEBAR -->
-            <?php 
-            $current_page = basename($_SERVER['PHP_SELF']);
-            ?>
             <div class="sticky">
                 <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
                 <div class="app-sidebar">
                     <div class="side-header">
-                        <a class="header-brand1" href="<?php echo $isAdmin ? '../admin/index.php' : '../landing.php'; ?>">
+                        <a class="header-brand1" href="my_courses.php">
                             <img src="../assets/images/brand/full-logo-dark.png" class="header-brand-img desktop-logo" alt="logo">
                             <img src="../assets/images/brand/LL-logo-light.png" class="header-brand-img toggle-logo" alt="logo">
                             <img src="../assets/images/brand/LL-logo-light.png" class="header-brand-img light-logo" alt="logo">
@@ -492,56 +441,52 @@ try {
                         </a>
                     </div>
                     <div class="main-sidemenu">
-                        <?php if($isAdmin): ?>
-                            <?php include_once("../admin/includes/sidebar.php"); ?>
-                        <?php else: ?>
-                            <ul class="side-menu">
-                                <li>
-                                    <h3>Menu</h3>
-                                </li>
-                                <li class="slide <?php echo ($current_page == 'my_courses.php') ? 'active' : ''; ?>">
-                                    <a class="side-menu__item has-link" href="my_courses.php">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                                            <path d="M4 6h16V4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4v2h8v-2h4c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 12V6h16v12H4z"/>
-                                        </svg>
-                                        <span class="side-menu__label">My Courses</span>
-                                    </a>
-                                </li>
-                                <li class="slide <?php echo ($current_page == 'profile.php') ? 'active' : ''; ?>">
-                                    <a class="side-menu__item has-link" href="profile.php">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                                        </svg>
-                                        <span class="side-menu__label">My Profile</span>
-                                    </a>
-                                </li>
-                                <li class="slide">
-                                    <a class="side-menu__item has-link" href="../landing.php">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-                                        </svg>
-                                        <span class="side-menu__label">Landing Page</span>
-                                    </a>
-                                </li>
-                                <li class="slide">
-                                    <a class="side-menu__item has-link" href="../logout.php">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
-                                            <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
-                                        </svg>
-                                        <span class="side-menu__label">Logout</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        <?php endif; ?>
+                        <ul class="side-menu">
+                            <li>
+                                <h3>Menu</h3>
+                            </li>
+                            <li class="slide active">
+                                <a class="side-menu__item has-link" href="profile.php">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                    </svg>
+                                    <span class="side-menu__label">My Profile</span>
+                                </a>
+                            </li>
+                            <li class="slide">
+                                <a class="side-menu__item has-link" href="my_courses.php">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                    </svg>
+                                    <span class="side-menu__label">My Courses</span>
+                                </a>
+                            </li>
+                            <li class="slide">
+                                <a class="side-menu__item has-link" href="../landing.php">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                                        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                    </svg>
+                                    <span class="side-menu__label">Landing Page</span>
+                                </a>
+                            </li>
+                            <li class="slide">
+                                <a class="side-menu__item has-link" href="../logout.php">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="side-menu__icon" viewBox="0 0 24 24">
+                                        <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"/>
+                                    </svg>
+                                    <span class="side-menu__label">Logout</span>
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
             <!-- /SIDEBAR -->
 
             <!-- APP-CONTENT -->
-            <div class="app-content main-content">
+            <div class="app-content main-content mt-0">
                 <div class="side-app">
-                    <div class="main-container container-fluid">
+                    <div class="page-container">
                         <div class="page-header-section">
                             <h1 class="page-title"><?php echo $isOwnProfile ? 'My Profile' : htmlspecialchars($firstName . ' ' . $lastName); ?></h1>
                         </div>
@@ -557,17 +502,6 @@ try {
                                 <h2 class="profile-name"><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></h2>
                                 <div class="profile-role"><?php echo $isAdmin ? 'Admin' : 'User'; ?></div>
                                 <div class="profile-email"><?php echo htmlspecialchars($email); ?></div>
-                                
-                                <div class="form-grid">
-                                    <div class="form-group">
-                                        <div class="form-label">Email Address</div>
-                                        <div class="form-value"><?php echo htmlspecialchars($email); ?></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="form-label">Phone Number</div>
-                                        <div class="form-value"><?php echo htmlspecialchars($phone ?? '—'); ?></div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
@@ -583,7 +517,7 @@ try {
                             <div class="info-grid">
                                 <div class="form-group">
                                     <div class="form-label">User ID</div>
-                                    <div class="form-value"><?php echo $uid; ?></div>
+                                    <div class="form-value"><?php echo htmlspecialchars($view_uid); ?></div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-label">First Name</div>
@@ -603,140 +537,69 @@ try {
                                 </div>
                                 <div class="form-group">
                                     <div class="form-label">Member Since</div>
-                                    <div class="form-value"><?php echo $created ?? '—'; ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">Occupation</div>
-                                    <div class="form-value"><?php echo htmlspecialchars($occupation ?: '—'); ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">College/University</div>
-                                    <div class="form-value"><?php echo htmlspecialchars($college_name ?: '—'); ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">Street Address</div>
-                                    <div class="form-value"><?php echo htmlspecialchars($address ?: '—'); ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">City</div>
-                                    <div class="form-value"><?php echo htmlspecialchars($city ?: '—'); ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">State</div>
-                                    <div class="form-value"><?php echo htmlspecialchars($state ?: '—'); ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">Country</div>
-                                    <div class="form-value"><?php echo htmlspecialchars($country ?: '—'); ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">Postal Code</div>
-                                    <div class="form-value"><?php echo htmlspecialchars($postal_code ?: '—'); ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">Phone Verified</div>
-                                    <div class="form-value"><?php echo $phone_verified ? 'Yes' : 'No'; ?></div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-label">Email Verified</div>
-                                    <div class="form-value"><?php echo $email_verified ? 'Yes' : 'No'; ?></div>
+                                    <div class="form-value"><?php echo htmlspecialchars($created ?? '—'); ?></div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
             <!-- /APP-CONTENT -->
         </div>
     </div>
+    <!-- /PAGE -->
 
-    <!-- Edit Profile Modal (only for own profile) -->
+    <!-- EDIT PROFILE MODAL -->
     <?php if($isOwnProfile): ?>
-    <div class="modal fade" id="editProfileModal" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+    <div class="modal fade" id="editProfileModal" tabindex="-1" role="dialog" aria-labelledby="editProfileLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editProfileLabel">Edit Profile</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" style="padding:24px;">
+                <div class="modal-body">
                     <form id="editProfileForm">
-                        <div class="mb-3">
-                            <h6 style="font-weight:700; color:#1f2937; margin-bottom:16px;">Basic Information</h6>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="firstName" class="form-label">First Name</label>
-                                    <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo htmlspecialchars($firstName); ?>" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="lastName" class="form-label">Last Name</label>
-                                    <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo htmlspecialchars($lastName); ?>" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
-                                    <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="mobileNumber" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="mobileNumber" name="mobileNumber" value="<?php echo htmlspecialchars($phone ?? ''); ?>">
-                                </div>
-                            </div>
+                        <div class="form-group mb-3">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" value="<?php echo htmlspecialchars($firstName); ?>" required>
                         </div>
-
-                        <hr style="border-color:#e7eef7;">
-
-                        <div class="mb-3">
-                            <h6 style="font-weight:700; color:#1f2937; margin-bottom:16px;">Address Information</h6>
-                            <div class="row">
-                                <div class="col-12 mb-3">
-                                    <label for="address" class="form-label">Street Address</label>
-                                    <input type="text" class="form-control" id="address" name="address" value="<?php echo htmlspecialchars($address ?? ''); ?>">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="city" class="form-label">City</label>
-                                    <input type="text" class="form-control" id="city" name="city" value="<?php echo htmlspecialchars($city ?? ''); ?>">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="state" class="form-label">State</label>
-                                    <input type="text" class="form-control" id="state" name="state" value="<?php echo htmlspecialchars($state ?? ''); ?>">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="country" class="form-label">Country</label>
-                                    <input type="text" class="form-control" id="country" name="country" value="<?php echo htmlspecialchars($country ?? ''); ?>">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="postalCode" class="form-label">Postal Code</label>
-                                    <input type="text" class="form-control" id="postalCode" name="postalCode" value="<?php echo htmlspecialchars($postal_code ?? ''); ?>">
-                                </div>
-                            </div>
+                        <div class="form-group mb-3">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" value="<?php echo htmlspecialchars($lastName); ?>" required>
                         </div>
-
-                        <hr style="border-color:#e7eef7;">
-
-                        <div class="mb-3">
-                            <h6 style="font-weight:700; color:#1f2937; margin-bottom:16px;">Professional Information</h6>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label for="occupation" class="form-label">Occupation</label>
-                                    <input type="text" class="form-control" id="occupation" name="occupation" value="<?php echo htmlspecialchars($occupation ?? ''); ?>">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="collegeName" class="form-label">College/University</label>
-                                    <input type="text" class="form-control" id="collegeName" name="collegeName" value="<?php echo htmlspecialchars($college_name ?? ''); ?>">
-                                </div>
-                            </div>
+                        <div class="form-group mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone" name="phone" value="<?php echo htmlspecialchars($phone); ?>">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn-save" onclick="saveProfileChanges()">Save Changes</button>
+                    <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-save" type="button" onclick="saveProfileChanges()">Save Changes</button>
                 </div>
             </div>
         </div>
     </div>
     <?php endif; ?>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center flex-row-reverse">
+                <div class="col-md-12 col-sm-12 text-center">
+                    <a href="https://learnlike.in" style="color:#6f42c1">Learnlike</a> © All rights reserved 2025 | 
+                    <a href="#">Terms & Conditions</a> |
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- /FOOTER -->
 
     <!-- JQUERY JS -->
     <script src="../assets/js/jquery.min.js"></script>
@@ -745,8 +608,24 @@ try {
     <script src="../assets/plugins/bootstrap/js/popper.min.js"></script>
     <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 
+    <!-- SIDE-MENU JS-->
+    <script src="../assets/plugins/sidemenu/sidemenu.js"></script>
+
+    <!-- PERFECT SCROLLBAR JS-->
+    <script src="../assets/plugins/p-scroll/perfect-scrollbar.js"></script>
+    <script src="../assets/plugins/p-scroll/pscroll.js"></script>
+
+    <!-- STICKY JS -->
+    <script src="../assets/js/sticky.js"></script>
+
+    <!-- COLOR THEME JS -->
+    <script src="../assets/js/themeColors.js"></script>
+
     <!-- CUSTOM JS -->
     <script src="../assets/js/custom.js"></script>
+
+    <!-- SWITCHER JS -->
+    <script src="../assets/switcher/js/switcher.js"></script>
 
     <?php if($isOwnProfile): ?>
     <script>
